@@ -1,5 +1,6 @@
 * {
 	font-family: monospace;
+	user-select: none;
 }
 
 body {
@@ -24,6 +25,7 @@ p.seta {
 	color: black;
 	font-size: 40px;
 	font-family: monospace;
+	cursor: pointer;
 }
 
 div.tabuleiro {
@@ -36,6 +38,7 @@ div.linha {
 }
 
 div.quadrado {
+	color: transparent;
 	width: 5px;
 	margin: 2px;
 	padding: 40px;

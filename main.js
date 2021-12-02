@@ -5,8 +5,10 @@ function moverPersonagem(direcao) {
         case "cima":
             novaPosicao -= 10
             if (novaPosicao < 0 || novaPosicao > 49) {
-                alert("Que feio, querendo sair do mapa!")
-            } else {
+                break
+            }
+
+            else {
                 posicaoAtual.classList.remove('active')
                 document.getElementById("quadrado" + novaPosicao).classList.add("active")
             }
@@ -14,8 +16,11 @@ function moverPersonagem(direcao) {
         case "esquerda":
             novaPosicao -= 1
             if (novaPosicao < 0 || novaPosicao > 49) {
-                alert("Que feio, querendo sair do mapa!")
-            } else {
+                break
+            } else if (["0","10","20","30","40"].includes(posicaoAtual.innerHTML)) {
+                break
+            }
+            else {
                 posicaoAtual.classList.remove('active')
                 document.getElementById("quadrado" + novaPosicao).classList.add("active")
             }
@@ -23,7 +28,7 @@ function moverPersonagem(direcao) {
         case "baixo":
             novaPosicao += 10
             if (novaPosicao < 0 || novaPosicao > 49) {
-                alert("Que feio, querendo sair do mapa!")
+                break
             } else {
                 posicaoAtual.classList.remove('active')
                 document.getElementById("quadrado" + novaPosicao).classList.add("active")
@@ -32,8 +37,11 @@ function moverPersonagem(direcao) {
         case "direita":
             novaPosicao += 1
             if (novaPosicao < 0 || novaPosicao > 49) {
-                alert("Que feio, querendo sair do mapa!")
-            } else {
+                break
+            }else if (['9','19','29','39'].includes(posicaoAtual.innerHTML) ){
+                break
+            }
+            else {
                 posicaoAtual.classList.remove('active')
                 document.getElementById("quadrado" + novaPosicao).classList.add("active")
             }
