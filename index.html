@@ -4,28 +4,28 @@
 		<title>Minigame WEB</title>
 		<link rel="stylesheet" type="text/css" href="./style.css">
 	</head>
-	<body onclick="return alerta()">
+	<body>
 		<h1>Tabuleiro</h1>
 
 		<div class="containerSetas">
-			<p id="setaCima" class="seta">⇧</p>
-			<p id="setaEsquerda" class="seta">⇦</p>
-			<p id="setaBaixo" class="seta">⇩</p>
-			<p id="setaDireita" class="seta">⇨</p>
+			<p id="setaCima" class="seta" onclick="moverPersonagem('cima')">⇧</p>
+			<p id="setaEsquerda" class="seta" onclick="moverPersonagem('esquerda')">⇦</p>
+			<p id="setaBaixo" class="seta" onclick="moverPersonagem('baixo')">⇩</p>
+			<p id="setaDireita" class="seta" onclick="moverPersonagem('direita')">⇨</p>
 		</div>
 
 		<div class="tabuleiro">
 			<div id="linha00" class="linha">
-					<div id="quadrado00" class="quadrado" value=0></div>
-					<div id="quadrado01" class="quadrado">1</div>
-					<div id="quadrado02" class="quadrado">2</div>
-					<div id="quadrado03" class="quadrado">3</div>
-					<div id="quadrado04" class="quadrado">4</div>
-					<div id="quadrado05" class="quadrado">5</div>
-					<div id="quadrado06" class="quadrado">6</div>
-					<div id="quadrado07" class="quadrado">7</div>
-					<div id="quadrado08" class="quadrado">8</div>
-					<div id="quadrado09" class="quadrado">9</div>
+					<div id="quadrado0" class="quadrado active">0</div>
+					<div id="quadrado1" class="quadrado">1</div>
+					<div id="quadrado2" class="quadrado">2</div>
+					<div id="quadrado3" class="quadrado">3</div>
+					<div id="quadrado4" class="quadrado">4</div>
+					<div id="quadrado5" class="quadrado">5</div>
+					<div id="quadrado6" class="quadrado">6</div>
+					<div id="quadrado7" class="quadrado">7</div>
+					<div id="quadrado8" class="quadrado">8</div>
+					<div id="quadrado9" class="quadrado">9</div>
 			</div>
 			<div id="linha01" class="linha">
 				<div id="quadrado10" class="quadrado">10</div>

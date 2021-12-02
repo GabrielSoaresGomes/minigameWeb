@@ -1,3 +1,7 @@
+* {
+	font-family: monospace;
+}
+
 body {
 	text-align: center;
 }
@@ -32,7 +36,12 @@ div.linha {
 }
 
 div.quadrado {
+	width: 5px;
 	margin: 2px;
 	padding: 40px;
 	background: indianred;
+}
+
+div.active {
+	background: orange;
 }
