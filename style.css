@@ -7,9 +7,6 @@ body {
 	text-align: center;
 }
 
-.ganhou {
-	animation: blinker 1s linear infinite;
-}
 
 h1 {
 	font-size: 4em;

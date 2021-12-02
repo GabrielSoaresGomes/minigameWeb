@@ -28,6 +28,8 @@ function moverPersonagem(direcao) {
     let posicaoAtual = document.getElementsByClassName('active')[0];
     let objective = document.getElementsByClassName("objective")[0];
     let objectivePosition = parseInt(document.getElementsByClassName("objective")[0].innerHTML);
+    let enemyPosition = parseInt(Math.floor(Math.random() * 49) + 1);
+
     let novaPosicao = parseInt(posicaoAtual.innerHTML);
     switch (direcao) {
         case "cima":
@@ -74,18 +76,37 @@ function moverPersonagem(direcao) {
     //Quando o usuário vence, posição nova deve ser igual à posição do objetivo
     if (novaPosicao == objectivePosition) {
         objective.classList.remove("objective")
-        document.getElementsByTagName('body')[0].classList.add("ganhou")
+        document.getElementById('tabuleiro').classList.add("ganhou")
 
-        objectivePosition = parseInt(Math.floor(Math.random() * 49) + 1);
+
+        objectivePosition = parseInt(Math.floor(Math.random() * 49) + 1);   
+        inimigos = document.getElementsByClassName("enemy")
+        console.log(inimigos)
+        while(objectivePosition == enemyPosition || objectivePosition == novaPosicao) {
+            objectivePosition = parseInt(Math.floor(Math.random() * 49) + 1);
+        }
         document.getElementById('quadrado' + objectivePosition).classList.add('objective');
 
         enemyPosition = parseInt(Math.floor(Math.random() * 49) + 1);
+        while(enemyPosition == objectivePosition || enemyPosition == novaPosicao) {
+            enemyPosition = parseInt(Math.floor(Math.random() * 49) + 1);
+        }
         document.getElementById('quadrado' + enemyPosition).classList.add('enemy');
-        document.getElementsByClassName('enemy')[0].innerHTML = '<img src="img/bomba.png" width="60px"> '
+        document.getElementById('quadrado' + enemyPosition).style.backgroundColor = "red"
 
         pontos += 1
     }
     document.getElementById("pontos").innerHTML = `Pontos: ${pontos}`
+    // if (pontos > 0) {
+    //     tabuleiro = document.getElementsByClassName('ganhou')[0]
+    //     if (pontos % 2 == 0) {
+    //         tabuleiro.style.backgroundColor = "red"
+    //     }else if (pontos % 3 == 0) {
+    //          tabuleiro.style.backgroundColor = "#dddd00"
+    //     }else {
+    //          tabuleiro.style.backgroundColor = "green"
+    //     }
+    // }
 }
 
 // document.getElementById("MyElement").classList.add('MyClass');
