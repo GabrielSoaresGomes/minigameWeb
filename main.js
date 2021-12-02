@@ -78,6 +78,11 @@ function moverPersonagem(direcao) {
 
         objectivePosition = parseInt(Math.floor(Math.random() * 49) + 1);
         document.getElementById('quadrado' + objectivePosition).classList.add('objective');
+
+        enemyPosition = parseInt(Math.floor(Math.random() * 49) + 1);
+        document.getElementById('quadrado' + enemyPosition).classList.add('enemy');
+        document.getElementsByClassName('enemy')[0].innerHTML = '<img src="img/bomba.png" width="60px"> '
+
         pontos += 1
     }
     document.getElementById("pontos").innerHTML = `Pontos: ${pontos}`

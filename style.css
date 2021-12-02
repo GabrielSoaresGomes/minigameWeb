@@ -44,6 +44,7 @@ div.linha {
 div.quadrado {
 	color: transparent;
 	width: 5px;
+	height: 5px;
 	margin: 2px;
 	padding: 40px;
 	background: indianred;
