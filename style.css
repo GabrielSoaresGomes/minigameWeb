@@ -29,7 +29,7 @@ p.seta {
 	cursor: pointer;
 }
 
-div.tabuleiro {
+div#tabuleiro {
 	display: grid;
 	justify-content:center ;
 }
@@ -53,4 +53,8 @@ div.active {
 
 div.objective {
 	background: yellow;
+}
+
+div.enemy {
+	background: red;
 }

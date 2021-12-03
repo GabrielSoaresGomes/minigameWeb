@@ -3,6 +3,7 @@ window.onload = function start() {
     document.getElementById('quadrado' + objectivePosition).classList.add('objective');
 }
 var pontos = 0
+var bombas = 0
 
 function tecla() {
     keyPressed = (String.fromCharCode(event.keyCode))
@@ -29,6 +30,7 @@ function moverPersonagem(direcao) {
     let objective = document.getElementsByClassName("objective")[0];
     let objectivePosition = parseInt(document.getElementsByClassName("objective")[0].innerHTML);
     let enemyPosition = parseInt(Math.floor(Math.random() * 49) + 1);
+    let posicoesInimigos = document.getElementsByClassName('enemy')
 
     let novaPosicao = parseInt(posicaoAtual.innerHTML);
     switch (direcao) {
@@ -79,24 +81,40 @@ function moverPersonagem(direcao) {
         document.getElementById('tabuleiro').classList.add("ganhou")
 
 
-        objectivePosition = parseInt(Math.floor(Math.random() * 49) + 1);   
+        objectivePosition = parseInt(Math.floor(Math.random() * 49) + 1);
+
         inimigos = document.getElementsByClassName("enemy")
-        console.log(inimigos)
-        while(objectivePosition == enemyPosition || objectivePosition == novaPosicao) {
+        c = 0
+        var listaPosicoes = []
+        while (posicoesInimigos.length > c) {
+            listaPosicoes.push(parseInt(posicoesInimigos[c].innerHTML))
+            c++
+        }
+        while (listaPosicoes.includes(objectivePosition)) {
             objectivePosition = parseInt(Math.floor(Math.random() * 49) + 1);
         }
+        quadradoObjetivo = document.getElementById("quadrado"+objectivePosition)
         document.getElementById('quadrado' + objectivePosition).classList.add('objective');
 
         enemyPosition = parseInt(Math.floor(Math.random() * 49) + 1);
-        while(enemyPosition == objectivePosition || enemyPosition == novaPosicao) {
+
+
+        while(enemyPosition == objectivePosition || enemyPosition == novaPosicao || listaPosicoes.includes(enemyPosition)) {
             enemyPosition = parseInt(Math.floor(Math.random() * 49) + 1);
         }
         document.getElementById('quadrado' + enemyPosition).classList.add('enemy');
-        document.getElementById('quadrado' + enemyPosition).style.backgroundColor = "red"
 
         pontos += 1
+        if (pontos % 4 == 0) {
+            bombas ++
+        }
+    }else if (listaPosicoes.includes(novaPosicao)) {
+        console.log(listaPosicoes)
+        derrota()
     }
+
     document.getElementById("pontos").innerHTML = `Pontos: ${pontos}`
+    document.getElementById("bombas").innerHTML = `Bombas: ${bombas}`
     // if (pontos > 0) {
     //     tabuleiro = document.getElementsByClassName('ganhou')[0]
     //     if (pontos % 2 == 0) {
@@ -109,6 +127,20 @@ function moverPersonagem(direcao) {
     // }
 }
 
+setTimeout(function derrota() {
+    document.getElementsByClassName('titulo')[0].innerHTML = 'Você foi derrotado, sinto muito.'
+    tim
+},3000)
+
+
+function destruirInimigo(quadradoClicado) {
+    quadradoEscolhido = document.getElementById("quadrado"+quadradoClicado)
+
+    if (bombas > 0 && quadradoEscolhido.classList.contains('enemy')) {
+        quadradoEscolhido.classList.remove("enemy")
+        bombas --
+    }
+}
 // document.getElementById("MyElement").classList.add('MyClass');
 //
 // document.getElementById("MyElement").classList.remove('MyClass');

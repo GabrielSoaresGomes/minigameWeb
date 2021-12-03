@@ -5,8 +5,9 @@
     <link rel="stylesheet" type="text/css" href="./style.css">
 </head>
 <body onkeydown="tecla()">
-<h1>Tabuleiro</h1>
+<h1 class="titulo">Tabuleiro</h1>
 <h2 id="pontos">Pontos: 0</h2>
+<h2 id="bombas">Bombas: 0</h2>
 <div class="containerSetas">
     <p id="setaCima" class="seta" onclick="moverPersonagem('cima')">⇧</p>
     <p id="setaEsquerda" class="seta" onclick="moverPersonagem('esquerda')">⇦</p>
@@ -16,64 +17,64 @@
 
 <div id="tabuleiro">
     <div id="linha00" class="linha">
-        <div id="quadrado0" class="quadrado active">0</div>
-        <div id="quadrado1" class="quadrado">1</div>
-        <div id="quadrado2" class="quadrado">2</div>
-        <div id="quadrado3" class="quadrado">3</div>
-        <div id="quadrado4" class="quadrado">4</div>
-        <div id="quadrado5" class="quadrado">5</div>
-        <div id="quadrado6" class="quadrado">6</div>
-        <div id="quadrado7" class="quadrado">7</div>
-        <div id="quadrado8" class="quadrado">8</div>
-        <div id="quadrado9" class="quadrado">9</div>
+        <div id="quadrado0" class="quadrado active" onclick="destruirInimigo(0)">0</div>
+        <div id="quadrado1" class="quadrado" onclick="destruirInimigo(1)">1</div>
+        <div id="quadrado2" class="quadrado" onclick="destruirInimigo(2)">2</div>
+        <div id="quadrado3" class="quadrado" onclick="destruirInimigo(3)">3</div>
+        <div id="quadrado4" class="quadrado" onclick="destruirInimigo(4)">4</div>
+        <div id="quadrado5" class="quadrado" onclick="destruirInimigo(5)">5</div>
+        <div id="quadrado6" class="quadrado" onclick="destruirInimigo(6)">6</div>
+        <div id="quadrado7" class="quadrado" onclick="destruirInimigo(7)">7</div>
+        <div id="quadrado8" class="quadrado" onclick="destruirInimigo(8)">8</div>
+        <div id="quadrado9" class="quadrado" onclick="destruirInimigo(9)">9</div>
     </div>
     <div id="linha01" class="linha">
-        <div id="quadrado10" class="quadrado">10</div>
-        <div id="quadrado11" class="quadrado">11</div>
-        <div id="quadrado12" class="quadrado">12</div>
-        <div id="quadrado13" class="quadrado">13</div>
-        <div id="quadrado14" class="quadrado">14</div>
-        <div id="quadrado15" class="quadrado">15</div>
-        <div id="quadrado16" class="quadrado">16</div>
-        <div id="quadrado17" class="quadrado">17</div>
-        <div id="quadrado18" class="quadrado">18</div>
-        <div id="quadrado19" class="quadrado">19</div>
+        <div id="quadrado10" class="quadrado" onclick="destruirInimigo(10)">10</div>
+        <div id="quadrado11" class="quadrado" onclick="destruirInimigo(11)">11</div>
+        <div id="quadrado12" class="quadrado" onclick="destruirInimigo(12)">12</div>
+        <div id="quadrado13" class="quadrado" onclick="destruirInimigo(13)">13</div>
+        <div id="quadrado14" class="quadrado" onclick="destruirInimigo(14)">14</div>
+        <div id="quadrado15" class="quadrado" onclick="destruirInimigo(15)">15</div>
+        <div id="quadrado16" class="quadrado" onclick="destruirInimigo(16)">16</div>
+        <div id="quadrado17" class="quadrado" onclick="destruirInimigo(17)">17</div>
+        <div id="quadrado18" class="quadrado" onclick="destruirInimigo(18)">18</div>
+        <div id="quadrado19" class="quadrado" onclick="destruirInimigo(19)">19</div>
     </div>
     <div id="linha02" class="linha">
-        <div id="quadrado20" class="quadrado">20</div>
-        <div id="quadrado21" class="quadrado">21</div>
-        <div id="quadrado22" class="quadrado">22</div>
-        <div id="quadrado23" class="quadrado">23</div>
-        <div id="quadrado24" class="quadrado">24</div>
-        <div id="quadrado25" class="quadrado">25</div>
-        <div id="quadrado26" class="quadrado">26</div>
-        <div id="quadrado27" class="quadrado">27</div>
-        <div id="quadrado28" class="quadrado">28</div>
-        <div id="quadrado29" class="quadrado">29</div>
+        <div id="quadrado20" class="quadrado" onclick="destruirInimigo(20)">20</div>
+        <div id="quadrado21" class="quadrado" onclick="destruirInimigo(21)">21</div>
+        <div id="quadrado22" class="quadrado" onclick="destruirInimigo(22)">22</div>
+        <div id="quadrado23" class="quadrado" onclick="destruirInimigo(23)">23</div>
+        <div id="quadrado24" class="quadrado" onclick="destruirInimigo(24)">24</div>
+        <div id="quadrado25" class="quadrado" onclick="destruirInimigo(25)">25</div>
+        <div id="quadrado26" class="quadrado" onclick="destruirInimigo(26)">26</div>
+        <div id="quadrado27" class="quadrado" onclick="destruirInimigo(27)">27</div>
+        <div id="quadrado28" class="quadrado" onclick="destruirInimigo(28)">28</div>
+        <div id="quadrado29" class="quadrado" onclick="destruirInimigo(29)">29</div>
     </div>
     <div id="linha03" class="linha">
-        <div id="quadrado30" class="quadrado">30</div>
-        <div id="quadrado31" class="quadrado">31</div>
-        <div id="quadrado32" class="quadrado">32</div>
-        <div id="quadrado33" class="quadrado">33</div>
-        <div id="quadrado34" class="quadrado">34</div>
-        <div id="quadrado35" class="quadrado">35</div>
-        <div id="quadrado36" class="quadrado">36</div>
-        <div id="quadrado37" class="quadrado">37</div>
-        <div id="quadrado38" class="quadrado">38</div>
-        <div id="quadrado39" class="quadrado">39</div>
+        <div id="quadrado30" class="quadrado" onclick="destruirInimigo(30)">30</div>
+        <div id="quadrado31" class="quadrado" onclick="destruirInimigo(31)">31</div>
+        <div id="quadrado32" class="quadrado" onclick="destruirInimigo(32)">32</div>
+        <div id="quadrado33" class="quadrado" onclick="destruirInimigo(33)">33</div>
+        <div id="quadrado34" class="quadrado" onclick="destruirInimigo(34)">34</div>
+        <div id="quadrado35" class="quadrado" onclick="destruirInimigo(35)">35</div>
+        <div id="quadrado36" class="quadrado" onclick="destruirInimigo(36)">36</div>
+        <div id="quadrado37" class="quadrado" onclick="destruirInimigo(37)">37</div>
+        <div id="quadrado38" class="quadrado" onclick="destruirInimigo(38)">38</div>
+        <div id="quadrado39" class="quadrado" onclick="destruirInimigo(39)">39</div>
     </div>
     <div id="linha04" class="linha">
-        <div id="quadrado40" class="quadrado">40</div>
-        <div id="quadrado41" class="quadrado">41</div>
-        <div id="quadrado42" class="quadrado">42</div>
-        <div id="quadrado43" class="quadrado">43</div>
-        <div id="quadrado44" class="quadrado">44</div>
-        <div id="quadrado45" class="quadrado">45</div>
-        <div id="quadrado46" class="quadrado">46</div>
-        <div id="quadrado47" class="quadrado">47</div>
-        <div id="quadrado48" class="quadrado">48</div>
-        <div id="quadrado49" class="quadrado">49</div>
+        <div id="quadrado40" class="quadrado" onclick="destruirInimigo(40)">40</div>
+        <div id="quadrado41" class="quadrado" onclick="destruirInimigo(41)">41</div>
+        <div id="quadrado42" class="quadrado" onclick="destruirInimigo(42)">42</div>
+        <div id="quadrado43" class="quadrado" onclick="destruirInimigo(43)">43</div>
+        <div id="quadrado44" class="quadrado" onclick="destruirInimigo(44)">44</div>
+        <div id="quadrado45" class="quadrado" onclick="destruirInimigo(45)">45</div>
+        <div id="quadrado46" class="quadrado" onclick="destruirInimigo(46)">46</div>
+        <div id="quadrado47" class="quadrado" onclick="destruirInimigo(47)">47</div>
+        <div id="quadrado48" class="quadrado" onclick="destruirInimigo(48)">48</div>
+        <div id="quadrado49" class="quadrado" onclick="destruirInimigo(49)">49</div>
     </div>
 </div> <!-- div class tabuleiro -->
 <script src="main.js" type="text/javascript" charset="utf-8" async defer></script>
