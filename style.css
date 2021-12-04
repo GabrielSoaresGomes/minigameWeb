@@ -58,3 +58,11 @@ div.objective {
 div.enemy {
 	background: red;
 }
+
+h2#time {
+	margin: 0;
+}
+
+span#moreSeconds {
+	color: green;
+}

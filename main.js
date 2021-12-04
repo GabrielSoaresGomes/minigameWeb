@@ -1,3 +1,17 @@
+setInterval(timer, 1000)
+
+var time = 10000
+var seconds = 10
+function timer() {
+    
+    if (seconds >= 0) {
+        document.getElementById("time").innerHTML = `${seconds}s <span id="moreSeconds"></span>`
+        seconds -= 1
+    }else {
+        derrotado = true
+        derrota()
+    }
+}
 
 var pontos = 0
 var bombas = 0
@@ -74,7 +88,12 @@ function moverPersonagem(direcao) {
                 break
         }
         //Quando o usuário vence, posição nova deve ser igual à posição do objetivo
-        if (novaPosicao == objectivePosition) {
+        if (novaPosicao == objectivePosition || posicaoAtual == objectivePosition) {
+            seconds += 3
+            document.getElementById('moreSeconds').innerHTML = '+3'
+            setTimeout(clearMoreSeconds,500)
+
+
             objective.classList.remove("objective")
             document.getElementById('tabuleiro').classList.add("ganhou")
 
@@ -116,11 +135,16 @@ function moverPersonagem(direcao) {
         console.log("listaPosicoes ",listaPosicoes )
         if (listaPosicoes.includes(novaPosicao)) {
             console.log("Entrou",listaPosicoes)
+            derrotado = true
             derrota()
         }
 
+
         document.getElementById("pontos").innerHTML = `Pontos: ${pontos}`
         document.getElementById("bombas").innerHTML = `Bombas: ${bombas}`
+        if (derrotado) {
+            derrota()
+        }
         // if (pontos > 0) {
         //     tabuleiro = document.getElementsByClassName('ganhou')[0]
         //     if (pontos % 2 == 0) {
@@ -135,10 +159,14 @@ function moverPersonagem(direcao) {
 }
 
 function derrota() {
+    seconds = 0
     document.getElementsByClassName('titulo')[0].innerHTML = 'Você foi derrotado, sinto muito.'
     document.getElementsByClassName('active')[0].classList.remove('active')
-    derrotado = true;
 
+}
+
+function clearMoreSeconds() {
+    document.getElementById("moreSeconds").innerHTML = ``
 }
 
 function destruirInimigo(quadradoClicado) {
