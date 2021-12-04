@@ -1,7 +1,7 @@
 setInterval(timer, 1000)
 
-var time = 10000
-var seconds = 10
+var time = 5000
+var seconds = 5
 function timer() {
     
     if (seconds >= 0) {
@@ -175,6 +175,7 @@ function destruirInimigo(quadradoClicado) {
     if (bombas > 0 && quadradoEscolhido.classList.contains('enemy')) {
         quadradoEscolhido.classList.remove("enemy")
         bombas --
+        document.getElementById("bombas").innerHTML = `Bombas: ${bombas}`
     }
 }
 // document.getElementById("MyElement").classList.add('MyClass');
