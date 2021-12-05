@@ -101,7 +101,7 @@ function moverPersonagem(direcao) {
                 break
         }
         //Quando o usuário vence, posição nova deve ser igual à posição do objetivo
-        if (novaPosicao == objectivePosition || posicaoAtual == objectivePosition) {
+        if (novaPosicao == objectivePosition) {
             seconds += 3
             document.getElementById("time").innerHTML = `${seconds}s <span id="moreSeconds"></span>`
             document.getElementById('moreSeconds').innerHTML = '+3'
@@ -113,7 +113,6 @@ function moverPersonagem(direcao) {
 
 
             objectivePosition = parseInt(Math.floor(Math.random() * 49) + 1);
-
             inimigos = document.getElementsByClassName("enemy")
             c = 0
             var listaPosicoes = []
@@ -121,7 +120,8 @@ function moverPersonagem(direcao) {
                 listaPosicoes.push(parseInt(posicoesInimigos[c].innerHTML))
                 c++
             }
-            while (listaPosicoes.includes(objectivePosition)) {
+            console.log(objectivePosition, novaPosicao)
+            while (listaPosicoes.includes(objectivePosition) || objectivePosition == novaPosicao) {
                 objectivePosition = parseInt(Math.floor(Math.random() * 49) + 1);
             }
             quadradoObjetivo = document.getElementById("quadrado"+objectivePosition)
@@ -147,7 +147,6 @@ function moverPersonagem(direcao) {
             c++
         }
         if (listaPosicoes.includes(novaPosicao)) {
-            console.log("Entrou",listaPosicoes)
             derrotado = true
             derrota()
         }
