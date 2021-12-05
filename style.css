@@ -71,3 +71,7 @@ button#buttonStart {
 	font-size: 2.5em;
 	padding: 12px 64px;
 }
+
+.invisible {
+	display: none;
+}

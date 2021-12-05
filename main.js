@@ -5,6 +5,7 @@ var seconds = 5
 
 var gameIsStart = false
 function startGame() {
+    document.querySelector('#audioStart').play()
     zerarQuadrados()
     zerarInformacoes()
     gameIsStart = true
@@ -102,6 +103,7 @@ function moverPersonagem(direcao) {
         }
         //Quando o usuário vence, posição nova deve ser igual à posição do objetivo
         if (novaPosicao == objectivePosition) {
+            document.querySelector('#audioCoin').play()
             seconds += 3
             document.getElementById("time").innerHTML = `${seconds}s <span id="moreSeconds"></span>`
             document.getElementById('moreSeconds').innerHTML = '+3'
@@ -120,7 +122,6 @@ function moverPersonagem(direcao) {
                 listaPosicoes.push(parseInt(posicoesInimigos[c].innerHTML))
                 c++
             }
-            console.log(objectivePosition, novaPosicao)
             while (listaPosicoes.includes(objectivePosition) || objectivePosition == novaPosicao) {
                 objectivePosition = parseInt(Math.floor(Math.random() * 49) + 1);
             }
@@ -161,6 +162,7 @@ function moverPersonagem(direcao) {
 }
 
 function derrota() {
+    document.querySelector('#audioDeath').play()
     seconds = 0
     document.getElementById("time").innerHTML = `${seconds}s <span id="moreSeconds"></span>`
     document.getElementsByClassName('titulo')[0].innerHTML = 'Você foi derrotado, sinto muito.'
@@ -180,6 +182,7 @@ function destruirInimigo(quadradoClicado) {
     quadradoEscolhido = document.getElementById("quadrado"+quadradoClicado)
 
     if (bombas > 0 && quadradoEscolhido.classList.contains('enemy')) {
+        document.querySelector("#audioDestroyEnemy").play()
         quadradoEscolhido.classList.remove("enemy")
         bombas --
         document.getElementById("bombas").innerHTML = `Bombas: ${bombas}`
@@ -194,7 +197,6 @@ function zerarQuadrados() {
 
     while (0 < quadradosInimigos.length) {
         quadradosInimigos[0].classList.remove('enemy')
-        console.log(0)
     }
     quadradosObjetivos = document.getElementsByClassName('objective')
     while (0 < quadradosObjetivos.length) {
