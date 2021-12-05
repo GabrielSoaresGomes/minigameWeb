@@ -2,14 +2,27 @@ setInterval(timer, 1000)
 
 var time = 5000
 var seconds = 5
+
+var gameIsStart = false
+function startGame() {
+    zerarQuadrados()
+    zerarInformacoes()
+    gameIsStart = true
+    document.getElementById('buttonStart').style.display="none"
+    timer()
+    return gameIsStart
+}
+
+
 function timer() {
-    
-    if (seconds >= 0) {
-        document.getElementById("time").innerHTML = `${seconds}s <span id="moreSeconds"></span>`
-        seconds -= 1
-    }else {
-        derrotado = true
-        derrota()
+    if (gameIsStart == true) {
+        if (seconds >= 0) {
+            document.getElementById("time").innerHTML = `${seconds}s <span id="moreSeconds"></span>`
+            seconds -= 1
+        } else {
+            derrotado = true
+            derrota()
+        }
     }
 }
 
@@ -90,6 +103,7 @@ function moverPersonagem(direcao) {
         //Quando o usuário vence, posição nova deve ser igual à posição do objetivo
         if (novaPosicao == objectivePosition || posicaoAtual == objectivePosition) {
             seconds += 3
+            document.getElementById("time").innerHTML = `${seconds}s <span id="moreSeconds"></span>`
             document.getElementById('moreSeconds').innerHTML = '+3'
             setTimeout(clearMoreSeconds,500)
 
@@ -132,7 +146,6 @@ function moverPersonagem(direcao) {
             listaPosicoes.push(parseInt(posicoesInimigos[c].innerHTML))
             c++
         }
-        console.log("listaPosicoes ",listaPosicoes )
         if (listaPosicoes.includes(novaPosicao)) {
             console.log("Entrou",listaPosicoes)
             derrotado = true
@@ -145,23 +158,18 @@ function moverPersonagem(direcao) {
         if (derrotado) {
             derrota()
         }
-        // if (pontos > 0) {
-        //     tabuleiro = document.getElementsByClassName('ganhou')[0]
-        //     if (pontos % 2 == 0) {
-        //         tabuleiro.style.backgroundColor = "red"
-        //     }else if (pontos % 3 == 0) {
-        //          tabuleiro.style.backgroundColor = "#dddd00"
-        //     }else {
-        //          tabuleiro.style.backgroundColor = "green"
-        //     }
-        // }
     }
 }
 
 function derrota() {
     seconds = 0
+    document.getElementById("time").innerHTML = `${seconds}s <span id="moreSeconds"></span>`
     document.getElementsByClassName('titulo')[0].innerHTML = 'Você foi derrotado, sinto muito.'
     document.getElementsByClassName('active')[0].classList.remove('active')
+    document.getElementById('buttonStart').innerHTML = "Recomeçar"
+    document.getElementById('buttonStart').style.display='initial'
+
+    gameIsStart = false
 
 }
 
@@ -178,6 +186,37 @@ function destruirInimigo(quadradoClicado) {
         document.getElementById("bombas").innerHTML = `Bombas: ${bombas}`
     }
 }
+
+function zerarQuadrados() {
+    if (derrotado == false) {
+        document.getElementsByClassName('active')[0].classList.remove("active")
+    }
+    quadradosInimigos = document.getElementsByClassName('enemy')
+
+    while (0 < quadradosInimigos.length) {
+        quadradosInimigos[0].classList.remove('enemy')
+        console.log(0)
+    }
+    quadradosObjetivos = document.getElementsByClassName('objective')
+    while (0 < quadradosObjetivos.length) {
+        quadradosObjetivos[0].classList.remove('objective')
+    }
+
+    document.getElementById('quadrado0').classList.add('active')
+    let objectivePosition = parseInt(Math.floor(Math.random() * 49) + 1);
+    document.getElementById('quadrado' + objectivePosition).classList.add('objective');
+}
+
+function zerarInformacoes() {
+    document.getElementsByClassName('titulo')[0].innerHTML = 'Tabuleiro'
+    pontos = 0
+    bombas = 0
+    seconds = 5
+    time = 5000
+    document.getElementById("pontos").innerHTML = `Pontos: ${pontos}`
+    document.getElementById("bombas").innerHTML = `Bombas: ${bombas}`
+    derrotado = false
+}
 // document.getElementById("MyElement").classList.add('MyClass');
 //
 // document.getElementById("MyElement").classList.remove('MyClass');
@@ -188,8 +227,6 @@ function destruirInimigo(quadradoClicado) {
 
 
 
-window.onload = function start() {
-    timer()
-    let objectivePosition = parseInt(Math.floor(Math.random() * 49) + 1);
-    document.getElementById('quadrado' + objectivePosition).classList.add('objective');
-}
+// window.onload = function start() {
+//
+// }

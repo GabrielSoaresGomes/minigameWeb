@@ -8,9 +8,7 @@
 <h1 class="titulo">Tabuleiro</h1>
 <h2 id="pontos">Pontos: 0</h2>
 <h2 id="bombas">Bombas: 0</h2>
-<h2 id="time">10s <span id="moreSeconds"></span></h2> 
-
-
+<h2 id="time">5s <span id="moreSeconds"></span></h2>
 
 <div class="containerSetas">
     <p id="setaCima" class="seta" onclick="moverPersonagem('cima')">⇧</p>
@@ -81,6 +79,7 @@
         <div id="quadrado49" class="quadrado" onclick="destruirInimigo(49)">49</div>
     </div>
 </div> <!-- div class tabuleiro -->
+<h3><button id="buttonStart" onclick="return startGame()">Começar</button></h3>
 <script src="main.js" type="text/javascript" charset="utf-8" async defer></script>
 </body>
 </html>
