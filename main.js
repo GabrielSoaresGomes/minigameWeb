@@ -1,5 +1,4 @@
 setInterval(timer, 1000)
-
 var time = 5000
 var seconds = 5
 
@@ -13,7 +12,9 @@ function startGame() {
     timer()
     return gameIsStart
 }
-
+var maiorPonto = localStorage.getItem('maiorPonto')
+if (maiorPonto == null){maiorPonto=0}
+document.getElementById("maiorPontuacao").innerHTML = `Maior Pontuação: ${maiorPonto}`;
 
 function timer() {
     if (gameIsStart == true) {
@@ -26,9 +27,6 @@ function timer() {
         }
     }
 }
-
-var pontos = 0
-var bombas = 0
 
 function tecla() {
     keyPressed = (String.fromCharCode(event.keyCode))
@@ -51,7 +49,10 @@ function tecla() {
 
 var derrotado = false
 function moverPersonagem(direcao) {
+    maiorPonto = localStorage.getItem('maiorPonto')
+    console.log(maiorPonto)
     if (derrotado == false) {
+        if (maiorPonto == null){maiorPonto=0}
         let posicaoAtual = document.getElementsByClassName('active')[0];
         let objective = document.getElementsByClassName("objective")[0];
         let objectivePosition = parseInt(document.getElementsByClassName("objective")[0].innerHTML);
@@ -135,10 +136,14 @@ function moverPersonagem(direcao) {
                 enemyPosition = parseInt(Math.floor(Math.random() * 49) + 1);
             }
             document.getElementById('quadrado' + enemyPosition).classList.add('enemy');
-
             pontos += 1
             if (pontos % 4 == 0) {
                 bombas ++
+            }
+            console.log(maiorPonto)
+            if (pontos > maiorPonto) {
+                var maiorPonto = pontos
+                rankPonto(maiorPonto)
             }
         }
         c = 0
@@ -217,6 +222,13 @@ function zerarInformacoes() {
     document.getElementById("pontos").innerHTML = `Pontos: ${pontos}`
     document.getElementById("bombas").innerHTML = `Bombas: ${bombas}`
     derrotado = false
+}
+
+function rankPonto(maiorPonto) {
+    localStorage.setItem("maiorPonto", maiorPonto);
+    if (maiorPonto == null){maiorPonto=0}
+    document.getElementById("maiorPontuacao").innerHTML = `Maior Pontuação: ${localStorage.getItem("maiorPonto")}`;
+
 }
 // document.getElementById("MyElement").classList.add('MyClass');
 //

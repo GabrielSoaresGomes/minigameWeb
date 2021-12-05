@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap%27');
+@import url('https://fonts.googleapis.com/css2?family=Acme&display=swap%27');
 * {
 	font-family: monospace;
 	user-select: none;
@@ -9,7 +11,7 @@ body {
 
 
 h1 {
-	font-size: 4em;
+	font-size: 2.2em;
 	margin-bottom: 20px;
 }
 
@@ -43,7 +45,7 @@ div.quadrado {
 	width: 5px;
 	height: 5px;
 	margin: 2px;
-	padding: 40px;
+	padding: 30px;
 	background: indianred;
 }
 
@@ -68,8 +70,10 @@ span#moreSeconds {
 }
 
 button#buttonStart {
-	font-size: 2.5em;
-	padding: 12px 64px;
+	font-family: 'Acme';
+	border-radius: 12px;
+	font-size: 1.2em;
+	padding: 12px 34px;
 }
 
 .invisible {
