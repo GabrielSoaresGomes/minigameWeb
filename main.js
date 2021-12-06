@@ -3,17 +3,21 @@ var time = 5000
 var seconds = 5
 
 var gameIsStart = false
+
 function startGame() {
     document.querySelector('#audioStart').play()
     zerarQuadrados()
     zerarInformacoes()
     gameIsStart = true
-    document.getElementById('buttonStart').style.display="none"
+    document.getElementById('buttonStart').style.display = "none"
     timer()
     return gameIsStart
 }
+
 var maiorPonto = localStorage.getItem('maiorPonto')
-if (maiorPonto == null){maiorPonto=0}
+if (maiorPonto == null) {
+    maiorPonto = 0
+}
 document.getElementById("maiorPontuacao").innerHTML = `Maior Pontuação: ${maiorPonto}`;
 
 function timer() {
@@ -48,11 +52,13 @@ function tecla() {
 }
 
 var derrotado = false
+
 function moverPersonagem(direcao) {
     maiorPonto = localStorage.getItem('maiorPonto')
-    console.log(maiorPonto)
     if (derrotado == false) {
-        if (maiorPonto == null){maiorPonto=0}
+        if (maiorPonto == null) {
+            maiorPonto = 0
+        }
         let posicaoAtual = document.getElementsByClassName('active')[0];
         let objective = document.getElementsByClassName("objective")[0];
         let objectivePosition = parseInt(document.getElementsByClassName("objective")[0].innerHTML);
@@ -95,6 +101,7 @@ function moverPersonagem(direcao) {
                 if (novaPosicao < 0 || novaPosicao > 49) {
                     break
                 } else if (['9', '19', '29', '39'].includes(posicaoAtual.innerHTML)) {
+                    novaPosicao = posicaoAtual.innerHTML
                     break
                 } else {
                     posicaoAtual.classList.remove('active')
@@ -108,7 +115,7 @@ function moverPersonagem(direcao) {
             seconds += 3
             document.getElementById("time").innerHTML = `${seconds}s <span id="moreSeconds"></span>`
             document.getElementById('moreSeconds').innerHTML = '+3'
-            setTimeout(clearMoreSeconds,500)
+            setTimeout(clearMoreSeconds, 500)
 
 
             objective.classList.remove("objective")
@@ -126,19 +133,19 @@ function moverPersonagem(direcao) {
             while (listaPosicoes.includes(objectivePosition) || objectivePosition == novaPosicao) {
                 objectivePosition = parseInt(Math.floor(Math.random() * 49) + 1);
             }
-            quadradoObjetivo = document.getElementById("quadrado"+objectivePosition)
+            quadradoObjetivo = document.getElementById("quadrado" + objectivePosition)
             document.getElementById('quadrado' + objectivePosition).classList.add('objective');
 
             enemyPosition = parseInt(Math.floor(Math.random() * 49) + 1);
 
 
-            while(enemyPosition == objectivePosition || enemyPosition == novaPosicao || listaPosicoes.includes(enemyPosition)) {
+            while (enemyPosition == objectivePosition || enemyPosition == novaPosicao || listaPosicoes.includes(enemyPosition)) {
                 enemyPosition = parseInt(Math.floor(Math.random() * 49) + 1);
             }
             document.getElementById('quadrado' + enemyPosition).classList.add('enemy');
             pontos += 1
             if (pontos % 4 == 0) {
-                bombas ++
+                bombas++
             }
             console.log(maiorPonto)
             if (pontos > maiorPonto) {
@@ -151,6 +158,12 @@ function moverPersonagem(direcao) {
         while (posicoesInimigos.length > c) {
             listaPosicoes.push(parseInt(posicoesInimigos[c].innerHTML))
             c++
+        }
+        if (listaPosicoes.length > 25) {
+            inimigoDestruido = listaPosicoes[Math.floor(Math.random() * listaPosicoes.length)]
+            document.getElementById('quadrado'+inimigoDestruido).classList.remove("enemy")
+            document.querySelector("#audioDestroyEnemy").play()
+
         }
         if (listaPosicoes.includes(novaPosicao)) {
             derrotado = true
@@ -173,7 +186,7 @@ function derrota() {
     document.getElementsByClassName('titulo')[0].innerHTML = 'Você foi derrotado, sinto muito.'
     document.getElementsByClassName('active')[0].classList.remove('active')
     document.getElementById('buttonStart').innerHTML = "Recomeçar"
-    document.getElementById('buttonStart').style.display='initial'
+    document.getElementById('buttonStart').style.display = 'initial'
 
     gameIsStart = false
 
@@ -184,12 +197,12 @@ function clearMoreSeconds() {
 }
 
 function destruirInimigo(quadradoClicado) {
-    quadradoEscolhido = document.getElementById("quadrado"+quadradoClicado)
+    quadradoEscolhido = document.getElementById("quadrado" + quadradoClicado)
 
     if (bombas > 0 && quadradoEscolhido.classList.contains('enemy')) {
         document.querySelector("#audioDestroyEnemy").play()
         quadradoEscolhido.classList.remove("enemy")
-        bombas --
+        bombas--
         document.getElementById("bombas").innerHTML = `Bombas: ${bombas}`
     }
 }
@@ -226,10 +239,13 @@ function zerarInformacoes() {
 
 function rankPonto(maiorPonto) {
     localStorage.setItem("maiorPonto", maiorPonto);
-    if (maiorPonto == null){maiorPonto=0}
+    if (maiorPonto == null) {
+        maiorPonto = 0
+    }
     document.getElementById("maiorPontuacao").innerHTML = `Maior Pontuação: ${localStorage.getItem("maiorPonto")}`;
 
 }
+
 // document.getElementById("MyElement").classList.add('MyClass');
 //
 // document.getElementById("MyElement").classList.remove('MyClass');
@@ -237,7 +253,6 @@ function rankPonto(maiorPonto) {
 // if ( document.getElementById("MyElement").classList.contains('MyClass') )
 //
 // document.getElementById("MyElement").classList.toggle('MyClass');
-
 
 
 // window.onload = function start() {
