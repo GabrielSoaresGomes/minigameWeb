@@ -69,7 +69,7 @@ span#moreSeconds {
 	color: green;
 }
 
-button#buttonStart {
+button.gameButton {
 	font-family: 'Acme';
 	border-radius: 12px;
 	font-size: 1.2em;
