@@ -10,8 +10,24 @@ function startGame() {
     zerarInformacoes()
     gameIsStart = true
     document.getElementById('buttonStart').style.display = "none"
+    document.getElementById('buttonPause').style.display = 'initial'
     timer()
     return gameIsStart
+}
+
+var gameIsPaused = false
+document.getElementById('buttonPause').style.display = 'none'
+function pauseGame() {
+    if (gameIsPaused == false && gameIsStart == true) {
+        gameIsPaused = true
+        document.getElementById('buttonPause').innerHTML = "Despausar"
+    }else {
+        gameIsPaused = false
+        document.getElementById('buttonPause').innerHTML = "Pausar"
+    }
+    
+    
+
 }
 
 var maiorPonto = localStorage.getItem('maiorPonto')
@@ -21,7 +37,7 @@ if (maiorPonto == null) {
 document.getElementById("maiorPontuacao").innerHTML = `Maior Pontuação: ${maiorPonto}`;
 
 function timer() {
-    if (gameIsStart == true) {
+    if (gameIsStart == true && gameIsPaused == false) {
         if (seconds >= 0) {
             document.getElementById("time").innerHTML = `${seconds}s <span id="moreSeconds"></span>`
             seconds -= 1
@@ -48,7 +64,9 @@ function tecla() {
             keyPressed = "baixo";
             break
     }
-    moverPersonagem(keyPressed)
+    if (gameIsStart && gameIsPaused == false) {
+       moverPersonagem(keyPressed)
+    }
 }
 
 var derrotado = false
@@ -147,7 +165,6 @@ function moverPersonagem(direcao) {
             if (pontos % 4 == 0) {
                 bombas++
             }
-            console.log(maiorPonto)
             if (pontos > maiorPonto) {
                 var maiorPonto = pontos
                 rankPonto(maiorPonto)
@@ -187,6 +204,7 @@ function derrota() {
     document.getElementsByClassName('active')[0].classList.remove('active')
     document.getElementById('buttonStart').innerHTML = "Recomeçar"
     document.getElementById('buttonStart').style.display = 'initial'
+    document.getElementById('buttonPause').style.display = 'none'
 
     gameIsStart = false
 
@@ -199,7 +217,7 @@ function clearMoreSeconds() {
 function destruirInimigo(quadradoClicado) {
     quadradoEscolhido = document.getElementById("quadrado" + quadradoClicado)
 
-    if (bombas > 0 && quadradoEscolhido.classList.contains('enemy')) {
+    if (bombas > 0 && quadradoEscolhido.classList.contains('enemy') && gameIsPaused == false && gameIsStart) {
         document.querySelector("#audioDestroyEnemy").play()
         quadradoEscolhido.classList.remove("enemy")
         bombas--
