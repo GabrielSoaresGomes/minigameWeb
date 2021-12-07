@@ -260,7 +260,7 @@ function clearMoreSeconds() {
     document.getElementById("moreSeconds").innerHTML = ``
 }
 
-function destruirInimigo(quadradoClicado) {
+function escolherQuadrado(quadradoClicado) {
     quadradoEscolhido = document.getElementById("quadrado" + quadradoClicado)
 
     if (bombas > 0 && quadradoEscolhido.classList.contains('enemy') && gameIsPaused == false && gameIsStart) {
@@ -269,6 +269,34 @@ function destruirInimigo(quadradoClicado) {
         bombas--
         document.getElementById("bombas").innerHTML = `Bombas: ${bombas}`
     }
+
+    var espacosDeItens = document.getElementsByClassName('espacoItem')
+    c = 0
+    while (espacosDeItens.length > 0) {
+        var teste = espacosDeItens[c].classList.contains('itemClicado')
+        if (teste) {
+            var itemAtivo = c
+            var temAtivo = true
+            break
+        }
+        c++
+    }
+    if ((temAtivo) && !(quadradoEscolhido.classList.contains('enemy')) &&
+        !(quadradoEscolhido.classList.contains('objective')) &&
+        !(quadradoEscolhido.classList.contains('active')) &&
+        !(quadradoEscolhido.classList.contains('quadradoItem')) && (gameIsStart) && (gameIsPaused == false)) {
+            document.getElementsByClassName('active')[0].classList.remove('active')
+            document.getElementById('quadrado'+quadradoClicado).classList.add('active')
+            c = 0
+            while (espacosDeItens.length > c) {
+                if (espacosDeItens[c].classList.contains('itemClicado')) {
+                    espacosDeItens[c].classList.remove('itemClicado')
+                }
+                c++
+            }
+    }
+
+
 }
 
 function zerarQuadrados() {
@@ -347,18 +375,26 @@ function ativarDesativarItem(itemClicado) {
     c = 0
     while (espacosItens.length > c) {
         if (espacosItens[c].classList.contains('itemClicado')) {
+            var ativo = c
             espacosItens[c].classList.remove('itemClicado')
         }
         c++
     }
     itemClicado = parseInt(itemClicado)
+    quadradoClicado = itemClicado
     itemClicado = document.getElementById('item'+itemClicado)
     if (itemClicado.classList.contains('temItem')) {
         itemClicado.classList.toggle('itemClicado')
     }
-}
-
-function usarItem() {
+    c = 0
+    if (quadradoClicado == ativo) {
+        while (espacosItens.length > c) {
+        if (espacosItens[c].classList.contains('itemClicado')) {
+            espacosItens[c].classList.remove('itemClicado')
+        }
+        c++
+    }
+    }
 
 }
 
