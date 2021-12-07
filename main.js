@@ -214,7 +214,6 @@ function moverPersonagem(direcao) {
         if (temQuadradoItem) {
             itemPosition = document.getElementsByClassName('quadradoItem')[0]
             if (novaPosicao == itemPosition.innerHTML) {
-                console.log("entrou")
                 itemPosition.classList.remove('quadradoItem')
                 temQuadradoItem = false
                 item0 = document.getElementById('item0')
@@ -223,15 +222,19 @@ function moverPersonagem(direcao) {
                 item3 = document.getElementById('item3')
                 if (!(item0.classList.contains('temItem'))) {
                     item0.classList.add('temItem')
+                    item0.innerHTML = `<img src="img/Enderpearl.png" width="40px">`
                 }
                 else if (!(item1.classList.contains('temItem'))) {
                     item1.classList.add('temItem')
+                    item1.innerHTML = `<img src="img/Enderpearl.png" width="40px">`
                 }
                 else if (!(item2.classList.contains('temItem'))) {
                     item2.classList.add('temItem')
+                    item2.innerHTML = `<img src="img/Enderpearl.png" width="40px">`
                 }
                 else if (!(item3.classList.contains('temItem'))) {
                     item3.classList.add('temItem')
+                    item3.innerHTML = `<img src="img/Enderpearl.png" width="40px">`
                 }
 
 
@@ -287,13 +290,15 @@ function escolherQuadrado(quadradoClicado) {
         !(quadradoEscolhido.classList.contains('quadradoItem')) && (gameIsStart) && (gameIsPaused == false)) {
             document.getElementsByClassName('active')[0].classList.remove('active')
             document.getElementById('quadrado'+quadradoClicado).classList.add('active')
-            c = 0
+            document.getElementsByClassName('itemClicado')[0].classList.remove('temItem')
+        c = 0
             while (espacosDeItens.length > c) {
                 if (espacosDeItens[c].classList.contains('itemClicado')) {
                     espacosDeItens[c].classList.remove('itemClicado')
                 }
                 c++
             }
+
     }
 
 
