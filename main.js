@@ -30,6 +30,7 @@ function startGame() {
     document.querySelector('#audioStart').play()
     zerarQuadrados()
     zerarInformacoes()
+    zerarItens()
     gameIsStart = true
     document.getElementById('buttonStart').style.display = "none"
     document.getElementById('buttonPause').style.display = 'initial'
@@ -291,7 +292,8 @@ function escolherQuadrado(quadradoClicado) {
             document.getElementsByClassName('active')[0].classList.remove('active')
             document.getElementById('quadrado'+quadradoClicado).classList.add('active')
             document.getElementsByClassName('itemClicado')[0].classList.remove('temItem')
-        c = 0
+            document.getElementsByClassName('itemClicado')[0].innerHTML = ``
+            c = 0
             while (espacosDeItens.length > c) {
                 if (espacosDeItens[c].classList.contains('itemClicado')) {
                     espacosDeItens[c].classList.remove('itemClicado')
@@ -403,6 +405,22 @@ function ativarDesativarItem(itemClicado) {
 
 }
 
+function zerarItens() {
+    espacosDeItens = document.getElementsByClassName('espacoItem')
+    c = 0
+    while (espacosDeItens.length > c) {
+        if (espacosDeItens[c].classList.contains('itemClicado')) {
+            espacosDeItens[c].classList.remove('itemClicado')
+        }
+        if (espacosDeItens[c].classList.contains('temItem')) {
+            espacosDeItens[c].classList.remove('temItem')
+            espacosDeItens[c].innerHTML = ``
+        }
+        c++
+    }
+
+
+}
 // document.getElementById("MyElement").classList.add('MyClass');
 //
 // document.getElementById("MyElement").classList.remove('MyClass');
