@@ -79,3 +79,21 @@ button.gameButton {
 .invisible {
 	display: none;
 }
+
+div.abaixoTabuleiro {
+	justify-content: center;
+	display: grid;
+	grid-template-columns: 250px 250px;
+	grid-template-rows: 1fr;
+	gap: 0;
+}
+
+div.menuItens {
+	width: 172px;
+	display: flex;
+}
+
+div.item {
+	min-width:40px ;
+	border: 2px solid black;
+}

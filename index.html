@@ -81,8 +81,18 @@
         <div id="quadrado49" class="quadrado" onclick="destruirInimigo(49)">49</div>
     </div>
 </div> <!-- div class tabuleiro -->
-<h3><button class="gameButton" id="buttonStart" onclick="return startGame()">Começar</button></h3>
-<h3><button class="gameButton" id="buttonPause" onclick="return pauseGame()">Pausar</button></h3>
+<div class="abaixoTabuleiro">
+    <div class="botoes">
+        <button class="gameButton" id="buttonStart" onclick="return startGame()">Começar</button>
+        <button class="gameButton" id="buttonPause" onclick="return pauseGame()">Pausar</button>
+    </div>
+    <div class="menuItens">
+        <div class="item" id="item0"></div>
+        <div class="item" id="item1"></div>
+        <div class="item" id="item2"></div>
+        <div class="item" id="item3"></div>
+    </div>
+</div>
 <audio id="audioCoin" src="sounds/coin.wav"></audio>
 <audio id="audioDestroyEnemy" src="sounds/destroyEnemy.wav"></audio>
 <audio id="audioDeath" src="sounds/dead.wav"></audio>
