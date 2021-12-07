@@ -1,8 +1,30 @@
 setInterval(timer, 1000)
-var time = 5000
-var seconds = 5
 
+var seconds = 120
+var time = seconds * 1000
 var gameIsStart = false
+document.getElementById('time').innerHTML = `${seconds}s <span id="moreSeconds"></span>`
+
+function verificarPosicao(position) {
+    let posicaoAtual = document.getElementsByClassName('active')[0];
+    let posicoesInimigos = document.getElementsByClassName('enemy')
+    var c = 0
+    var listaPosicoes = []
+    while (posicoesInimigos.length > c) {
+        listaPosicoes.push(parseInt(posicoesInimigos[c].innerHTML))
+        c++
+    }
+    let objectivePosition = parseInt(document.getElementsByClassName("objective")[0].innerHTML);
+    let novaPosicao = parseInt(posicaoAtual.innerHTML);
+    if (position == novaPosicao || listaPosicoes.includes(position) ||
+        position == objectivePosition) {
+        return true
+    } else {
+        return false
+    }
+
+}
+
 
 function startGame() {
     document.querySelector('#audioStart').play()
@@ -11,22 +33,24 @@ function startGame() {
     gameIsStart = true
     document.getElementById('buttonStart').style.display = "none"
     document.getElementById('buttonPause').style.display = 'initial'
+    timerSpawnItem()
     timer()
     return gameIsStart
 }
 
 var gameIsPaused = false
 document.getElementById('buttonPause').style.display = 'none'
+
 function pauseGame() {
     if (gameIsPaused == false && gameIsStart == true) {
         gameIsPaused = true
         document.getElementById('buttonPause').innerHTML = "Despausar"
-    }else {
+    } else {
         gameIsPaused = false
         document.getElementById('buttonPause').innerHTML = "Pausar"
+        timerSpawnItem()
     }
-    
-    
+
 
 }
 
@@ -65,7 +89,7 @@ function tecla() {
             break
     }
     if (gameIsStart && gameIsPaused == false) {
-       moverPersonagem(keyPressed)
+        moverPersonagem(keyPressed)
     }
 }
 
@@ -99,6 +123,7 @@ function moverPersonagem(direcao) {
                 if (novaPosicao < 0 || novaPosicao > 49) {
                     break
                 } else if (["0", "10", "20", "30", "40"].includes(posicaoAtual.innerHTML)) {
+                    novaPosicao = posicaoAtual.innerHTML
                     break
                 } else {
                     posicaoAtual.classList.remove('active')
@@ -178,7 +203,7 @@ function moverPersonagem(direcao) {
         }
         if (listaPosicoes.length > 25) {
             inimigoDestruido = listaPosicoes[Math.floor(Math.random() * listaPosicoes.length)]
-            document.getElementById('quadrado'+inimigoDestruido).classList.remove("enemy")
+            document.getElementById('quadrado' + inimigoDestruido).classList.remove("enemy")
             document.querySelector("#audioDestroyEnemy").play()
 
         }
@@ -186,13 +211,34 @@ function moverPersonagem(direcao) {
             derrotado = true
             derrota()
         }
+        if (temQuadradoItem) {
+            itemPosition = document.getElementsByClassName('quadradoItem')[0]
+            if (novaPosicao == itemPosition.innerHTML) {
+                console.log("entrou")
+                itemPosition.classList.remove('quadradoItem')
+                temQuadradoItem = false
+                item0 = document.getElementById('item0')
+                item1 = document.getElementById('item1')
+                item2 = document.getElementById('item2')
+                item3 = document.getElementById('item3')
+                if (!(item0.classList.contains('temItem'))) {
+                    item0.classList.add('temItem')
+                }
+                else if (!(item1.classList.contains('temItem'))) {
+                    item1.classList.add('temItem')
+                }
+                else if (!(item2.classList.contains('temItem'))) {
+                    item2.classList.add('temItem')
+                }
+                else if (!(item3.classList.contains('temItem'))) {
+                    item3.classList.add('temItem')
+                }
 
 
+            }
+        }
         document.getElementById("pontos").innerHTML = `Pontos: ${pontos}`
         document.getElementById("bombas").innerHTML = `Bombas: ${bombas}`
-        if (derrotado) {
-            derrota()
-        }
     }
 }
 
@@ -248,8 +294,8 @@ function zerarInformacoes() {
     document.getElementsByClassName('titulo')[0].innerHTML = 'Tabuleiro'
     pontos = 0
     bombas = 0
-    seconds = 5
-    time = 5000
+    seconds = 120
+    time = seconds * 1000
     document.getElementById("pontos").innerHTML = `Pontos: ${pontos}`
     document.getElementById("bombas").innerHTML = `Bombas: ${bombas}`
     derrotado = false
@@ -261,6 +307,58 @@ function rankPonto(maiorPonto) {
         maiorPonto = 0
     }
     document.getElementById("maiorPontuacao").innerHTML = `Maior Pontuação: ${localStorage.getItem("maiorPonto")}`;
+
+}
+
+function timerSpawnItem() {
+    if (gameIsPaused == false && gameIsStart == true) {
+        setInterval(spawnItem, 5000)
+    }
+}
+
+var temQuadradoItem = false
+
+function spawnItem() {
+    if (gameIsPaused == false && gameIsStart && temQuadradoItem == false) {
+        let itemPosition = parseInt(Math.floor(Math.random() * 49) + 1);
+        let typeItem = parseInt(Math.floor(Math.random() * 4))
+        typeItem = 0 //Só tem um item até agora
+        switch (typeItem) {
+            case 0:
+                let item = "teleporte";
+            case 1:
+                item = "";
+            case 2:
+                item = "";
+            case 3:
+                item = "";
+
+        }
+        while (verificarPosicao(itemPosition)) {
+            itemPosition = parseInt(Math.floor(Math.random() * 49) + 1);
+        }
+        document.getElementById('quadrado' + itemPosition).classList.add('quadradoItem')
+        temQuadradoItem = true
+    }
+}
+
+function ativarDesativarItem(itemClicado) {
+    espacosItens = document.getElementsByClassName('espacoItem')
+    c = 0
+    while (espacosItens.length > c) {
+        if (espacosItens[c].classList.contains('itemClicado')) {
+            espacosItens[c].classList.remove('itemClicado')
+        }
+        c++
+    }
+    itemClicado = parseInt(itemClicado)
+    itemClicado = document.getElementById('item'+itemClicado)
+    if (itemClicado.classList.contains('temItem')) {
+        itemClicado.classList.toggle('itemClicado')
+    }
+}
+
+function usarItem() {
 
 }
 

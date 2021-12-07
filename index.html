@@ -7,10 +7,11 @@
 </head>
 <body onkeydown="tecla()">
 <h1 class="titulo">Tabuleiro</h1>
+<!--<img src="img/adjust-solid.svg" alt="Imagem para trocar tema">-->
 <h2 id="maiorPontuacao">Maior Pontuação: 0</h2>
 <h2 id="pontos">Pontos: 0</h2>
 <h2 id="bombas">Bombas: 0</h2>
-<h2 id="time">5s <span id="moreSeconds"></span></h2>
+<h2 id="time"></h2>
 
 <!--<div class="containerSetas">-->
 <!--    <p id="setaCima" class="seta" onclick="moverPersonagem('cima')">⇧</p>-->
@@ -85,12 +86,11 @@
     <div class="botoes">
         <button class="gameButton" id="buttonStart" onclick="return startGame()">Começar</button>
         <button class="gameButton" id="buttonPause" onclick="return pauseGame()">Pausar</button>
-    </div>
-    <div class="menuItens">
-        <div class="item" id="item0"></div>
-        <div class="item" id="item1"></div>
-        <div class="item" id="item2"></div>
-        <div class="item" id="item3"></div>
+    </div>    <div class="menuItens">
+        <div class="espacoItem" id="item0" onclick="ativarDesativarItem(0)">0</div>
+        <div class="espacoItem" id="item1" onclick="ativarDesativarItem(1)">1</div>
+        <div class="espacoItem" id="item2" onclick="ativarDesativarItem(2)">2</div>
+        <div class="espacoItem" id="item3" onclick="ativarDesativarItem(3)">3</div>
     </div>
 </div>
 <audio id="audioCoin" src="sounds/coin.wav"></audio>

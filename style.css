@@ -1,5 +1,6 @@
-@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap%27');
+@import url("https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap%27");
 @import url('https://fonts.googleapis.com/css2?family=Acme&display=swap%27');
+
 * {
 	font-family: monospace;
 	user-select: none;
@@ -8,7 +9,6 @@
 body {
 	text-align: center;
 }
-
 
 h1 {
 	font-size: 2.2em;
@@ -20,16 +20,16 @@ div.containerSetas {
 	display: flex;
 }
 
-p.seta {
-	border-radius: 50%;
-	margin: 4px;
-	padding: 10px;
-	background: lightgreen;
-	color: black;
-	font-size: 40px;
-	font-family: monospace;
-	cursor: pointer;
-}
+/*p.seta {*/
+/*	border-radius: 50%;*/
+/*	margin: 4px;*/
+/*	padding: 10px;*/
+/*	background: lightgreen;*/
+/*	color: black;*/
+/*	font-size: 40px;*/
+/*	font-family: monospace;*/
+/*	cursor: pointer;*/
+/*}  */
 
 div#tabuleiro {
 	display: grid;
@@ -46,7 +46,7 @@ div.quadrado {
 	height: 5px;
 	margin: 2px;
 	padding: 30px;
-	background: indianred;
+	background: lightgray;
 }
 
 div.active {
@@ -54,11 +54,11 @@ div.active {
 }
 
 div.objective {
-	background: yellow;
+	background: #d0d929;
 }
 
 div.enemy {
-	background: red;
+	background: #800000;
 }
 
 h2#time {
@@ -70,7 +70,7 @@ span#moreSeconds {
 }
 
 button.gameButton {
-	font-family: 'Acme';
+	font-family: 'Acme', serif;
 	border-radius: 12px;
 	font-size: 1.2em;
 	padding: 12px 34px;
@@ -93,7 +93,16 @@ div.menuItens {
 	display: flex;
 }
 
-div.item {
+div.espacoItem {
+	color: transparent;
 	min-width:40px ;
 	border: 2px solid black;
+}
+
+div.quadradoItem {
+	background: purple;
+}
+
+div.itemClicado {
+	border: 2px solid yellow;
 }
