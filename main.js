@@ -49,7 +49,6 @@ function pauseGame() {
     } else {
         gameIsPaused = false
         document.getElementById('buttonPause').innerHTML = "Pausar"
-        timerSpawnItem()
     }
 
 
@@ -155,6 +154,15 @@ function moverPersonagem(direcao) {
         }
         //Quando o usuário vence, posição nova deve ser igual à posição do objetivo
         if (novaPosicao == objectivePosition) {
+            quadrados = document.getElementsByClassName('quadrado')
+            var c = 0
+            var posicaoItem = -1
+            while (c < quadrados.length) {
+                if (quadrados[c].classList.contains('quadradoItem')) {
+                    posicaoItem = parseInt(document.getElementById('quadrado'+c).innerHTML)
+                }
+                c++
+            }
             document.querySelector('#audioCoin').play()
             seconds += 3
             document.getElementById("time").innerHTML = `${seconds}s <span id="moreSeconds"></span>`
@@ -174,7 +182,7 @@ function moverPersonagem(direcao) {
                 listaPosicoes.push(parseInt(posicoesInimigos[c].innerHTML))
                 c++
             }
-            while (listaPosicoes.includes(objectivePosition) || objectivePosition == novaPosicao) {
+            while (objectivePosition == posicaoItem || listaPosicoes.includes(objectivePosition) || objectivePosition == novaPosicao)  {
                 objectivePosition = parseInt(Math.floor(Math.random() * 49) + 1);
             }
             quadradoObjetivo = document.getElementById("quadrado" + objectivePosition)
@@ -183,7 +191,7 @@ function moverPersonagem(direcao) {
             enemyPosition = parseInt(Math.floor(Math.random() * 49) + 1);
 
 
-            while (enemyPosition == objectivePosition || enemyPosition == novaPosicao || listaPosicoes.includes(enemyPosition)) {
+            while (enemyPosition == posicaoItem || enemyPosition == objectivePosition || enemyPosition == novaPosicao || listaPosicoes.includes(enemyPosition)) {
                 enemyPosition = parseInt(Math.floor(Math.random() * 49) + 1);
             }
             document.getElementById('quadrado' + enemyPosition).classList.add('enemy');
@@ -213,9 +221,15 @@ function moverPersonagem(direcao) {
             derrota()
         }
         if (temQuadradoItem) {
-            itemPosition = document.getElementsByClassName('quadradoItem')[0]
-            if (novaPosicao == itemPosition.innerHTML) {
-                itemPosition.classList.remove('quadradoItem')
+            c = 0;
+            while (c < quadrados.length) {
+                if (quadrados[c].classList.contains('quadradoItem')) {
+                   itemPosition = document.getElementById('quadrado'+c).innerHTML
+                }
+                c++
+            }
+            if (novaPosicao == itemPosition) {
+                document.getElementById('quadrado'+itemPosition).classList.remove('quadradoItem')
                 temQuadradoItem = false
                 item0 = document.getElementById('item0')
                 item1 = document.getElementById('item1')
@@ -276,7 +290,20 @@ function escolherQuadrado(quadradoClicado) {
 
     var espacosDeItens = document.getElementsByClassName('espacoItem')
     c = 0
-    while (espacosDeItens.length > 0) {
+    var temItem = false
+    var itemClicado = false
+    while (c < espacosDeItens.length) {
+        if (espacosDeItens[c].classList.contains('temItem')) {
+            temItem = true
+        }
+        if (espacosDeItens[c].classList.contains('itemClicado')) {
+            itemClicado = true
+        }
+        c++
+
+    }
+    c = 0
+    while (espacosDeItens.length > 0 && gameIsPaused == false && gameIsStart && temItem && itemClicado) {
         var teste = espacosDeItens[c].classList.contains('itemClicado')
         if (teste) {
             var itemAtivo = c
@@ -311,7 +338,6 @@ function zerarQuadrados() {
         document.getElementsByClassName('active')[0].classList.remove("active")
     }
     quadradosInimigos = document.getElementsByClassName('enemy')
-
     while (0 < quadradosInimigos.length) {
         quadradosInimigos[0].classList.remove('enemy')
     }
@@ -323,6 +349,10 @@ function zerarQuadrados() {
     document.getElementById('quadrado0').classList.add('active')
     let objectivePosition = parseInt(Math.floor(Math.random() * 49) + 1);
     document.getElementById('quadrado' + objectivePosition).classList.add('objective');
+    quadradoItem = document.getElementsByClassName('quadradoItem')
+    if (quadradoItem.length > 0) {
+        quadradoItem[0].classList.remove('quadradoItem')
+    }
 }
 
 function zerarInformacoes() {
