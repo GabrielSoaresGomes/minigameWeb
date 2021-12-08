@@ -34,7 +34,6 @@ function startGame() {
     gameIsStart = true
     document.getElementById('buttonStart').style.display = "none"
     document.getElementById('buttonPause').style.display = 'initial'
-    timerSpawnItem()
     timer()
     return gameIsStart
 }
@@ -229,6 +228,7 @@ function moverPersonagem(direcao) {
                 c++
             }
             if (novaPosicao == itemPosition) {
+                document.querySelector('#audioPickItem').play()
                 document.getElementById('quadrado'+itemPosition).classList.remove('quadradoItem')
                 temQuadradoItem = false
                 item0 = document.getElementById('item0')
@@ -313,20 +313,22 @@ function escolherQuadrado(quadradoClicado) {
         c++
     }
     if ((temAtivo) && !(quadradoEscolhido.classList.contains('enemy')) &&
-        !(quadradoEscolhido.classList.contains('objective')) &&
-        !(quadradoEscolhido.classList.contains('active')) &&
-        !(quadradoEscolhido.classList.contains('quadradoItem')) && (gameIsStart) && (gameIsPaused == false)) {
-            document.getElementsByClassName('active')[0].classList.remove('active')
-            document.getElementById('quadrado'+quadradoClicado).classList.add('active')
-            document.getElementsByClassName('itemClicado')[0].classList.remove('temItem')
-            document.getElementsByClassName('itemClicado')[0].innerHTML = ``
-            c = 0
-            while (espacosDeItens.length > c) {
-                if (espacosDeItens[c].classList.contains('itemClicado')) {
-                    espacosDeItens[c].classList.remove('itemClicado')
-                }
-                c++
+    !(quadradoEscolhido.classList.contains('objective')) &&
+    !(quadradoEscolhido.classList.contains('active')) &&
+    !(quadradoEscolhido.classList.contains('quadradoItem')) && (gameIsStart) && (gameIsPaused == false)) {
+
+        document.querySelector('#audioTeleport').play()
+        document.getElementsByClassName('active')[0].classList.remove('active')
+        document.getElementById('quadrado'+quadradoClicado).classList.add('active')
+        document.getElementsByClassName('itemClicado')[0].classList.remove('temItem')
+        document.getElementsByClassName('itemClicado')[0].innerHTML = ``
+        c = 0
+        while (espacosDeItens.length > c) {
+            if (espacosDeItens[c].classList.contains('itemClicado')) {
+                espacosDeItens[c].classList.remove('itemClicado')
             }
+            c++
+        }
 
     }
 
@@ -349,9 +351,14 @@ function zerarQuadrados() {
     document.getElementById('quadrado0').classList.add('active')
     let objectivePosition = parseInt(Math.floor(Math.random() * 49) + 1);
     document.getElementById('quadrado' + objectivePosition).classList.add('objective');
-    quadradoItem = document.getElementsByClassName('quadradoItem')
-    if (quadradoItem.length > 0) {
-        quadradoItem[0].classList.remove('quadradoItem')
+
+    quadrados = document.getElementsByClassName('quadrado')
+    c = 0
+    while (c < quadrados.length) {
+        if (quadrados[0].classList.contains('quadradoItem')) {
+            document.getElementsByClassName('quadradoItem')[0].classList.remove('quadradoItem')
+        }
+        c++
     }
 }
 
@@ -375,11 +382,8 @@ function rankPonto(maiorPonto) {
 
 }
 
-function timerSpawnItem() {
-    if (gameIsPaused == false && gameIsStart == true) {
-        setInterval(spawnItem, 5000)
-    }
-}
+
+setInterval(spawnItem, 5000)
 
 var temQuadradoItem = false
 
