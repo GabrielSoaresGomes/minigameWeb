@@ -352,13 +352,14 @@ function zerarQuadrados() {
     let objectivePosition = parseInt(Math.floor(Math.random() * 49) + 1);
     document.getElementById('quadrado' + objectivePosition).classList.add('objective');
 
-    quadrados = document.getElementsByClassName('quadrado')
-    c = 0
-    while (c < quadrados.length) {
-        if (quadrados[0].classList.contains('quadradoItem')) {
-            document.getElementsByClassName('quadradoItem')[0].classList.remove('quadradoItem')
+
+    itens = document.getElementsByClassName('quadradoItem')
+    if ( itens.length > 0) {
+        for( const item of itens) {
+            item.classList.remove('quadradoItem')
         }
-        c++
+        let itemPosition = parseInt(Math.floor(Math.random() * 49) + 1);
+        document.getElementById('quadrado'+itemPosition).classList.add('quadradoItem')
     }
 }
 
