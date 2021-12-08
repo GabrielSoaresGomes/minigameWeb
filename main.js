@@ -152,8 +152,8 @@ function moverPersonagem(direcao) {
                 break
         }
         //Quando o usuário vence, posição nova deve ser igual à posição do objetivo
+        var quadrados = document.getElementsByClassName('quadrado')
         if (novaPosicao == objectivePosition) {
-            quadrados = document.getElementsByClassName('quadrado')
             var c = 0
             var posicaoItem = -1
             while (c < quadrados.length) {
