@@ -383,7 +383,7 @@ function rankPonto(maiorPonto) {
 }
 
 
-setInterval(spawnItem, 5000)
+setInterval(spawnItem, 30000)
 
 var temQuadradoItem = false
 
