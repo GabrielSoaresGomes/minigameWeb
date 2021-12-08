@@ -243,19 +243,19 @@ function moverPersonagem(direcao) {
                 item3 = document.getElementById('item3')
                 if (!(item0.classList.contains('temItem'))) {
                     item0.classList.add('temItem')
-                    item0.innerHTML = `<img src="img/Enderpearl.png" width="40px">`
+                    item0.innerHTML = `<img src="../img/Enderpearl.png" width="40px">`
                 }
                 else if (!(item1.classList.contains('temItem'))) {
                     item1.classList.add('temItem')
-                    item1.innerHTML = `<img src="img/Enderpearl.png" width="40px">`
+                    item1.innerHTML = `<img src="../img/Enderpearl.png" width="40px">`
                 }
                 else if (!(item2.classList.contains('temItem'))) {
                     item2.classList.add('temItem')
-                    item2.innerHTML = `<img src="img/Enderpearl.png" width="40px">`
+                    item2.innerHTML = `<img src="../img/Enderpearl.png" width="40px">`
                 }
                 else if (!(item3.classList.contains('temItem'))) {
                     item3.classList.add('temItem')
-                    item3.innerHTML = `<img src="img/Enderpearl.png" width="40px">`
+                    item3.innerHTML = `<img src="../img/Enderpearl.png" width="40px">`
                 }
 
 
