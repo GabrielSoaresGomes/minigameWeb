@@ -132,6 +132,7 @@ function moverPersonagem(direcao) {
                 } else {
                     posicaoAtual.classList.remove('active')
                     document.getElementById("quadrado" + novaPosicao).classList.add("active")
+                    scrollBy(0,-50)
                 }
                 break
             case "esquerda":
@@ -153,6 +154,7 @@ function moverPersonagem(direcao) {
                 } else {
                     posicaoAtual.classList.remove('active')
                     document.getElementById("quadrado" + novaPosicao).classList.add("active")
+                    scrollBy(0,50)
                 }
                 break
             case "direita":

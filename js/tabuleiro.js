@@ -1,7 +1,7 @@
 function escreverTabuleiro() {
     document.getElementById('tabuleiro')
     let tabuleiro = document.getElementById('tabuleiro')
-    let numeroQuadrado = 25
+    let numeroQuadrado = 50
     for (let i = 0; i < numeroQuadrado; i++) {
         if (i % 10 == 0) {
             novaLinha = document.createElement('div')
