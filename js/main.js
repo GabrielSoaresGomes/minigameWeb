@@ -425,17 +425,6 @@ function spawnItem() {
 }
 
 function ativarDesativarItem(itemClicado) {
-    switch (itemClicado) { //Quando vem da função de usar os números para escolher os itens
-        case 1: itemClicado = 0
-            break;
-        case 2: itemClicado = 1
-            break;
-        case 3: itemClicado = 2
-            break;
-        case 4: itemClicado = 3
-            break;
-    }
-    espacosItens = document.getElementsByClassName('espacoItem')
     c = 0
     while (espacosItens.length > c) {
         if (espacosItens[c].classList.contains('itemClicado')) {
