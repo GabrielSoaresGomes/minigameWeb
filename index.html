@@ -5,9 +5,11 @@
     <link rel="stylesheet" type="text/css" href="./style.css">
     <link rel="shortcut icon" href="img/favicon.png" type="image/x-icon">
 </head>
-<body onkeydown="tecla()" onload="escreverTabuleiro()">
-<h1 class="titulo">Tabuleiro</h1>
-<!--<img src="img/adjust-solid.svg" alt="Imagem para trocar tema">-->
+<body onkeydown="tecla()" onload="escreverTabuleiro(), carregarTema()">
+<div class="containerTitulo">
+    <h1 class="titulo">Tabuleiro</h1>
+    <img class="imagemTema" src="img/adjust-solid-black.svg" onclick="trocarTema()" alt="Imagem para trocar tema">
+</div>
 <h2 id="maiorPontuacao">Maior Pontuação: 0</h2>
 <h2 id="pontos">Pontos: 0</h2>
 <h2 id="bombas">Bombas: 0</h2>

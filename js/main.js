@@ -396,7 +396,7 @@ function rankPonto(maiorPonto) {
 }
 
 
-setInterval(spawnItem, 3000)
+setInterval(spawnItem, 30000)
 
 var temQuadradoItem = false
 
@@ -425,6 +425,7 @@ function spawnItem() {
 }
 
 function ativarDesativarItem(itemClicado) {
+    var espacosItens = document.getElementsByClassName('espacoItem')
     c = 0
     while (espacosItens.length > c) {
         if (espacosItens[c].classList.contains('itemClicado')) {
@@ -464,9 +465,64 @@ function zerarItens() {
         }
         c++
     }
-
-
 }
+
+function carregarTema() {
+    var temaAtual = localStorage.getItem('temaAtual')
+    let espacos = document.getElementsByClassName('espacoItem')
+    if (temaAtual == undefined) {
+        temaAtual = "light"
+    }
+    if (temaAtual == "light") {
+        document.getElementsByTagName('body')[0].style.backgroundColor = "white"
+        document.getElementsByTagName('body')[0].style.color = "black"
+        var imagemTema = document.getElementsByClassName("imagemTema")[0]
+        imagemTema.setAttribute("src","img/adjust-solid-black.svg")
+        for (espaco of espacos) {
+            espaco.style.borderColor = 'black'
+        }
+    }
+    else {
+        document.getElementsByTagName('body')[0].style.backgroundColor = "black"
+        document.getElementsByTagName('body')[0].style.color = "white"
+        var imagemTema = document.getElementsByClassName("imagemTema")[0]
+        imagemTema.setAttribute("src","img/adjust-solid-white.svg")
+        for (espaco of espacos) {
+            espaco.style.borderColor = 'white'
+        }
+    }
+}
+
+function trocarTema() {
+    var temaAtual = localStorage.getItem('temaAtual')
+    let espacos = document.getElementsByClassName('espacoItem')
+    if (temaAtual == undefined) {
+    temaAtual = "light"
+}
+    if (temaAtual == "light") {
+        temaAtual = "dark"
+        localStorage.setItem("temaAtual", temaAtual)
+        document.getElementsByTagName('body')[0].style.backgroundColor = "black"
+        document.getElementsByTagName('body')[0].style.color = "white"
+        var imagemTema = document.getElementsByClassName("imagemTema")[0]
+        imagemTema.setAttribute("src","img/adjust-solid-white.svg")
+        for (espaco of espacos) {
+            espaco.style.borderColor = 'white'
+        }
+    }
+    else {
+        temaAtual = "light"
+        localStorage.setItem("temaAtual", temaAtual)
+        document.getElementsByTagName('body')[0].style.backgroundColor = "white"
+        document.getElementsByTagName('body')[0].style.color = "black"
+        var imagemTema = document.getElementsByClassName("imagemTema")[0]
+        imagemTema.setAttribute("src","img/adjust-solid-black.svg")
+        for (espaco of espacos) {
+            espaco.style.borderColor = 'black'
+        }
+    }
+}
+
 // document.getElementById("MyElement").classList.add('MyClass');
 //
 // document.getElementById("MyElement").classList.remove('MyClass');
