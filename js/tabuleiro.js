@@ -13,6 +13,8 @@ function escreverTabuleiro() {
         divNova.id = "quadrado" + i
         divNova.innerHTML = i
         divNova.setAttribute('onclick', "escolherQuadrado(" + i + ")")
+        divNova.setAttribute('ondragover','return false')
+        divNova.setAttribute("ondrop", "dragDrop("+i+")")
         if (i == 0) {
             divNova.classList.add('active')
         }

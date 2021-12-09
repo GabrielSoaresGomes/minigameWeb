@@ -243,19 +243,23 @@ function moverPersonagem(direcao) {
                 item3 = document.getElementById('item3')
                 if (!(item0.classList.contains('temItem'))) {
                     item0.classList.add('temItem')
-                    item0.innerHTML = `<img src="../img/Enderpearl.png" width="40px">`
+                    item0.innerHTML = `<img src="../img/Enderpearl.png" width="40px" ondragend="dragEnd(0)" ondragstart="dragStart(0)"
+                    alt="Imagem de uma enderpearl">`
                 }
                 else if (!(item1.classList.contains('temItem'))) {
                     item1.classList.add('temItem')
-                    item1.innerHTML = `<img src="../img/Enderpearl.png" width="40px">`
+                    item1.innerHTML = `<img src="../img/Enderpearl.png" width="40px" ondragend="dragEnd(1)" ondragstart="dragStart(1)"
+                    alt="Imagem de uma enderpearl">`
                 }
                 else if (!(item2.classList.contains('temItem'))) {
                     item2.classList.add('temItem')
-                    item2.innerHTML = `<img src="../img/Enderpearl.png" width="40px">`
+                    item2.innerHTML = `<img src="../img/Enderpearl.png" width="40px" ondragend="dragEnd(2)" ondragstart="dragStart(2)"
+                    alt="Imagem de uma enderpearl">`
                 }
                 else if (!(item3.classList.contains('temItem'))) {
                     item3.classList.add('temItem')
-                    item3.innerHTML = `<img src="../img/Enderpearl.png" width="40px">`
+                    item3.innerHTML = `<img src="../img/Enderpearl.png" width="40px" ondragend="dragEnd(3)" ondragstart="dragStart(3)"
+                    alt="Imagem de uma enderpearl">`
                 }
 
 
@@ -284,16 +288,14 @@ function clearMoreSeconds() {
     document.getElementById("moreSeconds").innerHTML = ``
 }
 
-function escolherQuadrado(quadradoClicado) {
+function escolherQuadrado(quadradoClicado, foiArrastado) {
     quadradoEscolhido = document.getElementById("quadrado" + quadradoClicado)
-
     if (bombas > 0 && quadradoEscolhido.classList.contains('enemy') && gameIsPaused == false && gameIsStart) {
         document.querySelector("#audioDestroyEnemy").play()
         quadradoEscolhido.classList.remove("enemy")
         bombas--
         document.getElementById("bombas").innerHTML = `Bombas: ${bombas}`
     }
-
     var espacosDeItens = document.getElementsByClassName('espacoItem')
     c = 0
     var temItem = false
@@ -309,7 +311,10 @@ function escolherQuadrado(quadradoClicado) {
 
     }
     c = 0
-    while (espacosDeItens.length > 0 && gameIsPaused == false && gameIsStart && temItem && itemClicado) {
+    if (foiArrastado == undefined) {
+        foiArrastado = false
+    }
+    while (espacosDeItens.length > 0 && !gameIsPaused && gameIsStart && temItem && (itemClicado || foiArrastado )) {
         var teste = espacosDeItens[c].classList.contains('itemClicado')
         if (teste) {
             var itemAtivo = c
@@ -318,10 +323,11 @@ function escolherQuadrado(quadradoClicado) {
         }
         c++
     }
+    foiArrastado = false
     if ((temAtivo) && !(quadradoEscolhido.classList.contains('enemy')) &&
     !(quadradoEscolhido.classList.contains('objective')) &&
     !(quadradoEscolhido.classList.contains('active')) &&
-    !(quadradoEscolhido.classList.contains('quadradoItem')) && (gameIsStart) && (gameIsPaused == false)) {
+    !(quadradoEscolhido.classList.contains('quadradoItem')) && (gameIsStart) && (!gameIsPaused)) {
 
         document.querySelector('#audioTeleport').play()
         document.getElementsByClassName('active')[0].classList.remove('active')
@@ -390,7 +396,7 @@ function rankPonto(maiorPonto) {
 }
 
 
-setInterval(spawnItem, 30000)
+setInterval(spawnItem, 3000)
 
 var temQuadradoItem = false
 
