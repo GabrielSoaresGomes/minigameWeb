@@ -1,7 +1,7 @@
 function escreverTabuleiro() {
     document.getElementById('tabuleiro')
     let tabuleiro = document.getElementById('tabuleiro')
-    let numeroQuadrado = 50
+    let numeroQuadrado = 25
     for (let i = 0; i < numeroQuadrado; i++) {
         if (i % 10 == 0) {
             novaLinha = document.createElement('div')
@@ -17,6 +17,9 @@ function escreverTabuleiro() {
         divNova.setAttribute("ondrop", "dragDrop("+i+")")
         if (i == 0) {
             divNova.classList.add('active')
+        }
+        if (i == numeroQuadrado-1) {
+            divNova.setAttribute('onload',"carregarValores()")
         }
         novaLinha.appendChild(divNova)
 
