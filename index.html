@@ -4,6 +4,7 @@
     <title>Minigame WEB</title>
     <link rel="stylesheet" type="text/css" href="./style.css">
     <link rel="shortcut icon" href="img/favicon.png" type="image/x-icon">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
 <body onkeydown="tecla()" onload="escreverTabuleiro(), carregarTema()">
 <div class="containerTitulo">
@@ -15,22 +16,23 @@
 <h2 id="bombas">Bombas: 0</h2>
 <h2 id="time"></h2>
 
-<!--<div class="containerSetas">-->
-<!--    <p id="setaCima" class="seta" onclick="moverPersonagem('cima')">⇧</p>-->
-<!--    <p id="setaEsquerda" class="seta" onclick="moverPersonagem('esquerda')">⇦</p>-->
-<!--    <p id="setaBaixo" class="seta" onclick="moverPersonagem('baixo')">⇩</p>-->
-<!--    <p id="setaDireita" class="seta" onclick="moverPersonagem('direita')">⇨</p>-->
-<!--</div>-->
+    <div class="containerSetas hidden">
+        <p id="setaCima" class="seta" onclick="moverPersonagem('cima')">⇧</p>
+        <p id="setaEsquerda" class="seta" onclick="moverPersonagem('esquerda')">⇦</p>
+        <p id="setaBaixo" class="seta" onclick="moverPersonagem('baixo')">⇩</p>
+        <p id="setaDireita" class="seta" onclick="moverPersonagem('direita')">⇨</p>
+    </div>
 
 <div id="tabuleiro" >
 <!-- O TABULEIRO ESTÁ EM UM ARQUIVO JS -->
-</div> <!-- div class tabuleiro -->
+</div>
 
 <div class="abaixoTabuleiro">
     <div class="botoes">
         <button class="gameButton" id="buttonStart" onclick="return startGame()">Começar</button>
         <button class="gameButton" id="buttonPause" onclick="return pauseGame()">Pausar</button>
-    </div>    <div class="menuItens">
+    </div>    
+    <div class="menuItens">
         <div class="espacoItem" id="item0" onclick="ativarDesativarItem(0)">0</div>
         <div class="espacoItem" id="item1" onclick="ativarDesativarItem(1)">1</div>
         <div class="espacoItem" id="item2" onclick="ativarDesativarItem(2)">2</div>

@@ -93,6 +93,15 @@ div.abaixoTabuleiro {
 	gap: 0;
 }
 
+div.botoes {
+	display: flex;
+	margin: 0 -30px;
+}
+
+div.botoes button {
+	margin: 0 4px;
+}
+
 div.menuItens {
 	width: 172px;
 	display: flex;
@@ -122,4 +131,8 @@ img.imagemTema {
 	position: absolute;
 	right: 2px;
 	width: 20px;
+}
+
+.hidden {
+	display: none !important;
 }

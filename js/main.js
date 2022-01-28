@@ -3,19 +3,20 @@ setInterval(timer, 1000)
 var seconds = 120
 var time = seconds * 1000
 var gameIsStart = false
-document.getElementById('time').innerHTML = `${seconds}s <span id="moreSeconds"></span>`
+//document.getElementById('time').innerHTML = `${seconds}s <span id="moreSeconds"></span>`
+$('#time').html(`${seconds}s <span id=''moreSeconds></span>`)
 
 function verificarPosicao(position) {
-    let posicaoAtual = document.getElementsByClassName('active')[0];
-    let posicoesInimigos = document.getElementsByClassName('enemy')
+    let posicaoAtual = $('.active:first')
+    let posicoesInimigos = $('.enemy')
     var c = 0
     var listaPosicoes = []
     while (posicoesInimigos.length > c) {
         listaPosicoes.push(parseInt(posicoesInimigos[c].innerHTML))
         c++
     }
-    let objectivePosition = parseInt(document.getElementsByClassName("objective")[0].innerHTML);
-    let novaPosicao = parseInt(posicaoAtual.innerHTML);
+    let objectivePosition = parseInt($('.objective:first').html())
+    let novaPosicao = parseInt(posicaoAtual.html());
     if (position == novaPosicao || listaPosicoes.includes(position) ||
         position == objectivePosition) {
         return true
@@ -27,42 +28,41 @@ function verificarPosicao(position) {
 
 
 function startGame() {
-    document.querySelector('#audioStart').play()
+    $('#audioStart')[0].play()
     zerarQuadrados()
     zerarInformacoes()
     zerarItens()
     gameIsStart = true
-    document.getElementById('buttonStart').style.display = "none"
-    document.getElementById('buttonPause').style.display = 'initial'
+    $('#buttonStart').css('display', 'none');
+    $('#buttonPause').css('display', 'initial');
+
     timer()
     return gameIsStart
 }
 
 var gameIsPaused = false
-document.getElementById('buttonPause').style.display = 'none'
+$("#buttonPause").css("display","none")
 
 function pauseGame() {
     if (gameIsPaused == false && gameIsStart == true) {
         gameIsPaused = true
-        document.getElementById('buttonPause').innerHTML = "Despausar"
+        $('#buttonPause').html('Despausar')
     } else {
         gameIsPaused = false
-        document.getElementById('buttonPause').innerHTML = "Pausar"
+        $('#buttonPause').html('Pausar')
     }
-
-
 }
 
 var maiorPonto = localStorage.getItem('maiorPonto')
 if (maiorPonto == null) {
     maiorPonto = 0
 }
-document.getElementById("maiorPontuacao").innerHTML = `Maior Pontuação: ${maiorPonto}`;
+$('#maiorPontuacao').html(`Maior Pontuação: ${maiorPonto}`)
 
 function timer() {
     if (gameIsStart == true && gameIsPaused == false) {
         if (seconds >= 0) {
-            document.getElementById("time").innerHTML = `${seconds}s <span id="moreSeconds"></span>`
+            $('#time').html(`${seconds}s <span id='moreSeconds'></span>`)
             seconds -= 1
         } else {
             derrotado = true
@@ -104,7 +104,7 @@ var derrotado = false
 
 function carregarValores() {
 //Pegar o número total de quadrados
-    var quantidadeQuadrados = parseInt(document.getElementsByClassName('quadrado').length)
+    var quantidadeQuadrados = parseInt($('.quadrado').length)
     var numeroMaxInimigo = parseInt(quantidadeQuadrados / 2)
     return [quantidadeQuadrados, numeroMaxInimigo]
 }
@@ -117,21 +117,21 @@ function moverPersonagem(direcao) {
         if (maiorPonto == null) {
             maiorPonto = 0
         }
-        let posicaoAtual = document.getElementsByClassName('active')[0];
-        let objective = document.getElementsByClassName("objective")[0];
-        let objectivePosition = parseInt(document.getElementsByClassName("objective")[0].innerHTML);
+        let posicaoAtual = $('.active:first');
+        let objective = $(".objective:first");
+        let objectivePosition = parseInt($(".objective:first").html());
         let enemyPosition = parseInt(Math.floor(Math.random() * (quantidadeQuadrados-1)) + 1);
-        let posicoesInimigos = document.getElementsByClassName('enemy')
+        let posicoesInimigos = $('.enemy')
 
-        let novaPosicao = parseInt(posicaoAtual.innerHTML);
+        let novaPosicao = parseInt(posicaoAtual.html());
         switch (direcao) {
             case "cima":
                 novaPosicao -= 10
                 if (novaPosicao < 0 || novaPosicao >= quantidadeQuadrados) {
                     break
                 } else {
-                    posicaoAtual.classList.remove('active')
-                    document.getElementById("quadrado" + novaPosicao).classList.add("active")
+                    posicaoAtual.removeClass('active')
+                    $("#quadrado" + novaPosicao).addClass("active")
                     scrollBy(0,-50)
                 }
                 break
@@ -139,12 +139,12 @@ function moverPersonagem(direcao) {
                 novaPosicao -= 1
                 if (novaPosicao < 0 || novaPosicao >= quantidadeQuadrados) {
                     break
-                } else if ((posicaoAtual.innerHTML).slice(-1) == '0') {
-                    novaPosicao = posicaoAtual.innerHTML
+                } else if ((posicaoAtual.html()).slice(-1) == '0') {
+                    novaPosicao = posicaoAtual.html()
                     break
                 } else {
-                    posicaoAtual.classList.remove('active')
-                    document.getElementById("quadrado" + novaPosicao).classList.add("active")
+                    posicaoAtual.removeClass('active')
+                    $("#quadrado" + novaPosicao).addClass("active")
                 }
                 break
             case "baixo":
@@ -152,8 +152,8 @@ function moverPersonagem(direcao) {
                 if (novaPosicao < 0 || novaPosicao >= quantidadeQuadrados) {
                     break
                 } else {
-                    posicaoAtual.classList.remove('active')
-                    document.getElementById("quadrado" + novaPosicao).classList.add("active")
+                    posicaoAtual.removeClass('active')
+                    $("#quadrado" + novaPosicao).addClass("active")
                     scrollBy(0,50)
                 }
                 break
@@ -161,50 +161,48 @@ function moverPersonagem(direcao) {
                 novaPosicao += 1
                 if (novaPosicao < 0 || novaPosicao >= quantidadeQuadrados) {
                     break
-                } else if ((posicaoAtual.innerHTML).slice(-1) == '9') {
-                    novaPosicao = posicaoAtual.innerHTML
+                } else if ((posicaoAtual.html()).slice(-1) == '9') {
+                    novaPosicao = posicaoAtual.html()
                     break
                 } else {
-                    posicaoAtual.classList.remove('active')
-                    document.getElementById("quadrado" + novaPosicao).classList.add("active")
+                    posicaoAtual.removeClass('active')
+                    $("#quadrado" + novaPosicao).addClass("active")
                 }
                 break
         }
         //Quando o usuário vence, posição nova deve ser igual à posição do objetivo
-        var quadrados = document.getElementsByClassName('quadrado')
+        var quadrados = $('.quadrado')
         if (novaPosicao == objectivePosition) {
             var c = 0
             var posicaoItem = -1
-            while (c < quadrados.length) {
-                if (quadrados[c].classList.contains('quadradoItem')) {
-                    posicaoItem = parseInt(document.getElementById('quadrado'+c).innerHTML)
+            quadrados.each(function() {
+                if ($(this).hasClass("quadradoItem")) {
+                    posicaoItem = parseInt($('#quadrado'+c).html())
                 }
-                c++
-            }
-            document.querySelector('#audioCoin').play()
+            })
+            $('#audioCoin')[0].play()
             seconds += 3
-            document.getElementById("time").innerHTML = `${seconds}s <span id="moreSeconds"></span>`
-            document.getElementById('moreSeconds').innerHTML = '+3'
+            $("#time").html(`${seconds}s <span id="moreSeconds"></span>`)
+            $('#moreSeconds').html = '+3'
             setTimeout(clearMoreSeconds, 500)
 
 
-            objective.classList.remove("objective")
-            document.getElementById('tabuleiro').classList.add("ganhou")
+            objective.removeClass("objective")
+            $('#tabuleiro').addClass("ganhou")
 
 
             objectivePosition = parseInt(Math.floor(Math.random() * (quantidadeQuadrados-1)) + 1)
-            inimigos = document.getElementsByClassName("enemy")
+            inimigos = $(".enemy")
             c = 0
             var listaPosicoes = []
-            while (posicoesInimigos.length > c) {
-                listaPosicoes.push(parseInt(posicoesInimigos[c].innerHTML))
-                c++
-            }
+            posicoesInimigos.each(function() {
+                listaPosicoes.push(parseInt($(this).html()))
+            })
             while (objectivePosition == posicaoItem || listaPosicoes.includes(objectivePosition) || objectivePosition == novaPosicao)  {
                 objectivePosition = parseInt(Math.floor(Math.random() * (quantidadeQuadrados-1)) + 1);
             }
-            quadradoObjetivo = document.getElementById("quadrado" + objectivePosition)
-            document.getElementById('quadrado' + objectivePosition).classList.add('objective');
+            quadradoObjetivo = $("#quadrado" + objectivePosition)
+            $('#quadrado' + objectivePosition).addClass('objective');
 
             enemyPosition = parseInt(Math.floor(Math.random() * (quantidadeQuadrados-1)) + 1);
 
@@ -212,7 +210,7 @@ function moverPersonagem(direcao) {
             while (enemyPosition == posicaoItem || enemyPosition == objectivePosition || enemyPosition == novaPosicao || listaPosicoes.includes(enemyPosition)) {
                 enemyPosition = parseInt(Math.floor(Math.random() * (quantidadeQuadrados-1)) + 1);
             }
-            document.getElementById('quadrado' + enemyPosition).classList.add('enemy');
+            $('#quadrado' + enemyPosition).addClass('enemy');
             pontos += 1
             if (pontos % 4 == 0) {
                 bombas++
@@ -224,15 +222,16 @@ function moverPersonagem(direcao) {
         }
         c = 0
         var listaPosicoes = []
-        while (posicoesInimigos.length > c) {
-            listaPosicoes.push(parseInt(posicoesInimigos[c].innerHTML))
-            c++
-        }
+        posicoesInimigos.each(function() {
+            listaPosicoes.push(parseInt($(this).html()))
+
+
+        })
         // Limitar o número de inimigos para a a metade do tabuleiro
         if (listaPosicoes.length > numeroMaxInimigo) {
             inimigoDestruido = listaPosicoes[Math.floor(Math.random() * listaPosicoes.length)]
-            document.getElementById('quadrado' + inimigoDestruido).classList.remove("enemy")
-            document.querySelector("#audioDestroyEnemy").play()
+            $('#quadrado' + inimigoDestruido).removeClass("enemy")
+            $("#audioDestroyEnemy")[0].play()
 
         }
         if (listaPosicoes.includes(novaPosicao)) {
@@ -241,95 +240,90 @@ function moverPersonagem(direcao) {
         }
         if (temQuadradoItem) {
             c = 0;
-            while (c < quadrados.length) {
-                if (quadrados[c].classList.contains('quadradoItem')) {
-                   itemPosition = document.getElementById('quadrado'+c).innerHTML
+            quadrados.each(function(index) {
+                if ($(this).hasClass('quadradoItem')) {
+                    itemPosition = $('#quadrado'+index).html()
                 }
-                c++
-            }
+            })
+
             if (novaPosicao == itemPosition) {
-                document.querySelector('#audioPickItem').play()
-                document.getElementById('quadrado'+itemPosition).classList.remove('quadradoItem')
+                $('#audioPickItem')[0].play()
+                $('4quadrado'+itemPosition).removeClass('quadradoItem')
                 temQuadradoItem = false
-                item0 = document.getElementById('item0')
-                item1 = document.getElementById('item1')
-                item2 = document.getElementById('item2')
-                item3 = document.getElementById('item3')
-                if (!(item0.classList.contains('temItem'))) {
-                    item0.classList.add('temItem')
-                    item0.innerHTML = `<img src="../img/Enderpearl.png" width="40px" ondragend="dragEnd(0)" ondragstart="dragStart(0)"
-                    alt="Imagem de uma enderpearl">`
+                item0 = $('#item0')
+                item1 = $('#item1')
+                item2 = $('#item2')
+                item3 = $('#item3')
+                if (!(item0.hasClass('temItem'))) {
+                    item0.addClass('temItem')
+                    item0.html(`<img src="../img/Enderpearl.png" width="40px" ondragend="dragEnd(0)" ondragstart="dragStart(0)"
+                    alt="Imagem de uma enderpearl">`)
                 }
-                else if (!(item1.classList.contains('temItem'))) {
-                    item1.classList.add('temItem')
-                    item1.innerHTML = `<img src="../img/Enderpearl.png" width="40px" ondragend="dragEnd(1)" ondragstart="dragStart(1)"
-                    alt="Imagem de uma enderpearl">`
+                else if (!(item1.hasClass('temItem'))) {
+                    item1.addClass('temItem')
+                    item1.html(`<img src="../img/Enderpearl.png" width="40px" ondragend="dragEnd(1)" ondragstart="dragStart(1)"
+                    alt="Imagem de uma enderpearl">`)
                 }
-                else if (!(item2.classList.contains('temItem'))) {
-                    item2.classList.add('temItem')
-                    item2.innerHTML = `<img src="../img/Enderpearl.png" width="40px" ondragend="dragEnd(2)" ondragstart="dragStart(2)"
-                    alt="Imagem de uma enderpearl">`
+                else if (!(item2.hasClass('temItem'))) {
+                    item2.addClass('temItem')
+                    item2.html(`<img src="../img/Enderpearl.png" width="40px" ondragend="dragEnd(2)" ondragstart="dragStart(2)"
+                    alt="Imagem de uma enderpearl">`)
                 }
-                else if (!(item3.classList.contains('temItem'))) {
-                    item3.classList.add('temItem')
-                    item3.innerHTML = `<img src="../img/Enderpearl.png" width="40px" ondragend="dragEnd(3)" ondragstart="dragStart(3)"
-                    alt="Imagem de uma enderpearl">`
+                else if (!(item3.hasClass('temItem'))) {
+                    item3.addClass('temItem')
+                    item3.html(`<img src="../img/Enderpearl.png" width="40px" ondragend="dragEnd(3)" ondragstart="dragStart(3)"
+                    alt="Imagem de uma enderpearl">`)
                 }
-
-
             }
         }
-        document.getElementById("pontos").innerHTML = `Pontos: ${pontos}`
-        document.getElementById("bombas").innerHTML = `Bombas: ${bombas}`
+        $("#pontos").html(`Pontos: ${pontos}`)
+        $("#bombas").html(`Bombas: ${bombas}`)
     }
 }
 
 function derrota() {
-    document.querySelector('#audioDeath').play()
+    $('#audioDeath')[0].play()
     seconds = 0
-    document.getElementById("time").innerHTML = `${seconds}s <span id="moreSeconds"></span>`
-    document.getElementsByClassName('titulo')[0].innerHTML = 'Você foi derrotado, sinto muito.'
-    document.getElementsByClassName('active')[0].classList.remove('active')
-    document.getElementById('buttonStart').innerHTML = "Recomeçar"
-    document.getElementById('buttonStart').style.display = 'initial'
-    document.getElementById('buttonPause').style.display = 'none'
+    $("#time").html(`${seconds}s <span id="moreSeconds"></span>`)
+    $('.titulo:first').html('Você foi derrotado, sinto muito.')
+    $('.active:first').removeClass('active')
+    $('#buttonStart').html("Recomeçar")
+    $('#buttonStart').css("display",'initial')
+    $('#buttonPause').css("display",'none')
 
     gameIsStart = false
-
 }
 
 function clearMoreSeconds() {
-    document.getElementById("moreSeconds").innerHTML = ``
+    $("#moreSeconds").html(``)
 }
 
 function escolherQuadrado(quadradoClicado, foiArrastado) {
-    quadradoEscolhido = document.getElementById("quadrado" + quadradoClicado)
-    if (bombas > 0 && quadradoEscolhido.classList.contains('enemy') && gameIsPaused == false && gameIsStart) {
-        document.querySelector("#audioDestroyEnemy").play()
-        quadradoEscolhido.classList.remove("enemy")
+    quadradoEscolhido = $("#quadrado" + quadradoClicado)
+    if (bombas > 0 && quadradoEscolhido.hasClass('enemy') && gameIsPaused == false && gameIsStart) {
+        $("#audioDestroyEnemy")[0].play()
+        quadradoEscolhido.removeClass("enemy")
         bombas--
-        document.getElementById("bombas").innerHTML = `Bombas: ${bombas}`
+       $("#bombas").html(`Bombas: ${bombas}`)
     }
-    var espacosDeItens = document.getElementsByClassName('espacoItem')
+    var espacosDeItens = $('.espacoItem')
     c = 0
     var temItem = false
     var itemClicado = false
-    while (c < espacosDeItens.length) {
-        if (espacosDeItens[c].classList.contains('temItem')) {
+    espacosDeItens.each(function() {
+        if ($(this).hasClass('temItem')) {
             temItem = true
         }
-        if (espacosDeItens[c].classList.contains('itemClicado')) {
+        if ($(this).hasClass('itemClicado')) {
             itemClicado = true
         }
-        c++
-
-    }
+    })
     c = 0
     if (foiArrastado == undefined) {
         foiArrastado = false
     }
     while (espacosDeItens.length > 0 && !gameIsPaused && gameIsStart && temItem && (itemClicado || foiArrastado )) {
-        var teste = espacosDeItens[c].classList.contains('itemClicado')
+        var teste = espacosDeItens[c].hasClass('itemClicado')
         if (teste) {
             var itemAtivo = c
             var temAtivo = true
@@ -338,20 +332,20 @@ function escolherQuadrado(quadradoClicado, foiArrastado) {
         c++
     }
     foiArrastado = false
-    if ((temAtivo) && !(quadradoEscolhido.classList.contains('enemy')) &&
-    !(quadradoEscolhido.classList.contains('objective')) &&
-    !(quadradoEscolhido.classList.contains('active')) &&
-    !(quadradoEscolhido.classList.contains('quadradoItem')) && (gameIsStart) && (!gameIsPaused)) {
+    if ((temAtivo) && !(quadradoEscolhido.hasClass('enemy')) &&
+    !(quadradoEscolhido.hasClass('objective')) &&
+    !(quadradoEscolhido.hasClass('active')) &&
+    !(quadradoEscolhido.hasClass('quadradoItem')) && (gameIsStart) && (!gameIsPaused)) {
 
-        document.querySelector('#audioTeleport').play()
-        document.getElementsByClassName('active')[0].classList.remove('active')
-        document.getElementById('quadrado'+quadradoClicado).classList.add('active')
-        document.getElementsByClassName('itemClicado')[0].classList.remove('temItem')
-        document.getElementsByClassName('itemClicado')[0].innerHTML = ``
+        $('#audioTeleport')[0].play()
+        $('.active')[0].removeClass('active')
+        $('#quadrado'+quadradoClicado).addClass('active')
+        $('.itemClicado:first').removeClass('temItem')
+        $('.itemClicado:first').html("")
         c = 0
         while (espacosDeItens.length > c) {
-            if (espacosDeItens[c].classList.contains('itemClicado')) {
-                espacosDeItens[c].classList.remove('itemClicado')
+            if (espacosDeItens[c].hasClass('itemClicado')) {
+                espacosDeItens[c].removeClass('itemClicado')
             }
             c++
         }
@@ -364,41 +358,41 @@ function escolherQuadrado(quadradoClicado, foiArrastado) {
 function zerarQuadrados() {
 
     if (derrotado == false) {
-        document.getElementsByClassName('active')[0].classList.remove("active")
+        $('.active:first').removeClass("active")
     }
-    quadradosInimigos = document.getElementsByClassName('enemy')
-    while (0 < quadradosInimigos.length) {
-        quadradosInimigos[0].classList.remove('enemy')
-    }
-    quadradosObjetivos = document.getElementsByClassName('objective')
-    while (0 < quadradosObjetivos.length) {
-        quadradosObjetivos[0].classList.remove('objective')
-    }
+    quadradosInimigos = $('.enemy')
+    quadradosInimigos.each(function() {
+        $(this).removeClass('enemy')
+    })
+    quadradosObjetivos = $('.objective')
+    quadradosObjetivos.each(function() {
+        $(this).removeClass('objective')
+    })
     let valores  = carregarValores()
     let quantidadeQuadrados = valores[0]
-    document.getElementById('quadrado0').classList.add('active')
+    $('#quadrado0').addClass('active')
     let objectivePosition = parseInt(Math.floor(Math.random() * (quantidadeQuadrados-1)) + 1);
-    document.getElementById('quadrado' + objectivePosition).classList.add('objective');
+    $('#quadrado' + objectivePosition).addClass('objective');
 
 
-    itens = document.getElementsByClassName('quadradoItem')
+    itens = $('.quadradoItem')
     if ( itens.length > 0) {
-        for( const item of itens) {
-            item.classList.remove('quadradoItem')
-        }
+        itens.each(function() {
+            $(this).removeClass("quadradoItem")
+        })
         let itemPosition = parseInt(Math.floor(Math.random() * (quantidadeQuadrados-1)) + 1);
-        document.getElementById('quadrado'+itemPosition).classList.add('quadradoItem')
+        $('#quadrado'+itemPosition).addClass('quadradoItem')
     }
 }
 
 function zerarInformacoes() {
-    document.getElementsByClassName('titulo')[0].innerHTML = 'Tabuleiro'
+    $('.titulo:first').html('Tabuleiro')
     pontos = 0
     bombas = 0
     seconds = 120
     time = seconds * 1000
-    document.getElementById("pontos").innerHTML = `Pontos: ${pontos}`
-    document.getElementById("bombas").innerHTML = `Bombas: ${bombas}`
+    $("#pontos").html(`Pontos: ${pontos}`)
+    $("#bombas").html(`Bombas: ${bombas}`)
     derrotado = false
 }
 
@@ -407,7 +401,7 @@ function rankPonto(maiorPonto) {
     if (maiorPonto == null) {
         maiorPonto = 0
     }
-    document.getElementById("maiorPontuacao").innerHTML = `Maior Pontuação: ${localStorage.getItem("maiorPonto")}`;
+   $("#maiorPontuacao").html(`Maior Pontuação: ${localStorage.getItem("maiorPonto")}`)
 
 }
 
@@ -420,7 +414,7 @@ function spawnItem() {
     if (gameIsPaused == false && gameIsStart && temQuadradoItem == false) {
         let itemPosition = parseInt(Math.floor(Math.random() * (quantidadeQuadrados-1)) + 1);
         let typeItem = parseInt(Math.floor(Math.random() * 4))
-        typeItem = 0 //Só tem um item até agora
+        typeItem = 0 //Só tem um item até agora, quando tiver mais pode remover essa linha
         switch (typeItem) {
             case 0:
                 let item = "teleporte";
@@ -435,7 +429,7 @@ function spawnItem() {
         while (verificarPosicao(itemPosition)) {
             itemPosition = parseInt(Math.floor(Math.random() * (quantidadeQuadrados-1)) + 1);
         }
-        document.getElementById('quadrado' + itemPosition).classList.add('quadradoItem')
+        $('#quadrado' + itemPosition).addClass('quadradoItem')
         temQuadradoItem = true
     }
 }
@@ -458,27 +452,26 @@ function ativarDesativarItem(itemClicado, veioPelasTeclas) {
         }
     }
     veioPelasTeclas = false
-    espacosItens = document.getElementsByClassName('espacoItem')
-    var espacosItens = document.getElementsByClassName('espacoItem')
+    espacosItens = $('.espacoItem')
+    var espacosItens = $('.espacoItem')
     c = 0
-    while (espacosItens.length > c) {
-        if (espacosItens[c].classList.contains('itemClicado')) {
-            var ativo = c
-            espacosItens[c].classList.remove('itemClicado')
+    espacosItens.each(function(index) {
+        if ($(this).hasClass("itemClicado")) {
+            var ativo = index
+            $(this).removeClass("itemclicado")
         }
-        c++
-    }
+    })
     itemClicado = parseInt(itemClicado)
     quadradoClicado = itemClicado
-    itemClicado = document.getElementById('item'+itemClicado)
-    if (itemClicado.classList.contains('temItem')) {
-        itemClicado.classList.toggle('itemClicado')
+    itemClicado = $('#item'+itemClicado)
+    if (itemClicado.hasClass('temItem')) {
+        itemClicado.toggleClass('itemClicado')
     }
     c = 0
     if (quadradoClicado == ativo) {
         while (espacosItens.length > c) {
-        if (espacosItens[c].classList.contains('itemClicado')) {
-            espacosItens[c].classList.remove('itemClicado')
+        if (espacosItens[c].hasClass('itemClicado')) {
+            espacosItens[c].removeClass('itemClicado')
         }
         c++
     }
@@ -487,23 +480,26 @@ function ativarDesativarItem(itemClicado, veioPelasTeclas) {
 }
 
 function zerarItens() {
-    espacosDeItens = document.getElementsByClassName('espacoItem')
+    espacosDeItens = $('.espacoItem')
     c = 0
-    while (espacosDeItens.length > c) {
-        if (espacosDeItens[c].classList.contains('itemClicado')) {
-            espacosDeItens[c].classList.remove('itemClicado')
+    espacosDeItens.each(function () {
+
+        if ($(this).hasClass('itemClicado')) {
+            $(this).removeClass('itemClicado')
         }
-        if (espacosDeItens[c].classList.contains('temItem')) {
-            espacosDeItens[c].classList.remove('temItem')
-            espacosDeItens[c].innerHTML = ``
+        if ($(this).hasClass('temItem')) {
+            $(this).removeClass('temItem')
+            $(this).html(``)
         }
-        c++
     }
+    )
 }
+
+        
 
 function carregarTema() {
     var temaAtual = localStorage.getItem('temaAtual')
-    let espacos = document.getElementsByClassName('espacoItem')
+    let espacos = $('.espacoItem')
     if (temaAtual == undefined) {
         temaAtual = "light"
     }
